@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Hello Bug~]]></title>
+  <link href="http://hellobug.github.com/atom.xml" rel="self"/>
+  <link href="http://hellobug.github.com/"/>
+  <updated>2013-01-10T23:41:14+08:00</updated>
+  <id>http://hellobug.github.com/</id>
+  <author>
+    <name><![CDATA[joyzoo]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Github Pages And Octopress Blog Setup]]></title>
+    <link href="http://hellobug.github.com/blog/github-pages-and-octopress-blog-setup/"/>
+    <updated>2013-01-10T00:00:00+08:00</updated>
+    <id>http://hellobug.github.com/blog/github-pages-and-octopress-blog-setup</id>
+    <content type="html"><![CDATA[<p>﻿&#8212;
+layout: post
+title: &#8220;[Github Pages + Octopress 搭建篇] - Geek般的写博客呦~&#8221;
+date: 2012-08-24 01:31
+comments: true</p>
+
+<h2>categories: [blog, octopress, github]</h2>
+
+<p>一个偶然发现了<a href="http://octopress.org/">Octopress</a>，研究了一下发现真的很有意思~ 其实原理呢就是<a href="http://pages.github.com/">Github pages</a>提供了存储静态页面的空间域名和<a href="https://github.com/mojombo/jekyll">Jekyll</a>（Blog生成工具），支持Markdown格式，而Octopress呢又把Jekyll包装了一下，使用起来更方便，更可以专注在内容上啦~ 好了，开始吧~</p>
+
+<!-- more -->
+
+
+<h2>1. 准备Github Pages</h2>
+
+<p>首先，得有个github账户（假设你用户名是xiaoming），在里面创建一个Repository，名字一定要是<code>xiaoming.github.com</code>，你才能用<code>xiaoming.github.com</code>的域名去访问你的blog~</p>
+
+<p>然后，在你Repository的<code>Admin</code>里，左边选<code>Option</code>，右边会看到<code>Github Pages</code>的项，点击<code>Automatic Page Generator</code>按钮到下一页后，直接点击最下面的<code>Continue to Layouts</code>，到达选择模板页，不用选择，一会儿会被Octopress的模板替换掉，直接点击<code>PUBLIS</code>按钮就发布成功了，等一段时间就能生效啦~</p>
+
+<h2>2. 准备本地环境</h2>
+
+<p>官方的搭建说明文档在<a href="http://octopress.org/docs/setup/">这里</a>。</p>
+
+<p>由于工作和游戏的种种原因，我使用的“2B青年必备”的Mac下的Win7。。。-_-</p>
+
+<h4>a) Git</h4>
+
+<p>安装<a href="http://git-scm.com/downloads">Git</a></p>
+
+<h4>b) Ruby</h4>
+
+<p>安装<a href="http://rubyforge.org/frs/?group_id=167">RubyInstaller</a> （>=1.9.2）</p>
+
+<h4>c) Gem</h4>
+
+<p>安装<a href="http://rubyinstaller.org/downloads/">DevKit</a><br/>
+然后在命令行执行：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd </span>path-to-devkit
+</span><span class='line'>ruby dk.rb init
+</span><span class='line'>ruby dk.rb instal
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>or</em></p>
+
+<h4>前三步可替换为RailsInstaller</h4>
+
+<p>安装<a href="http://railsinstaller.org/">RailsInstaller</a> (包括了Ruby，Git，Gem)</p>
+
+<h4>d) python</h4>
+
+<p>安装<a href="http://www.python.org/getit/">Python</a>，因为代码高亮系统是基于Python编写的。</p>
+
+<h2>3. 更改本地配置</h2>
+
+<h4>a) 中文utf-8编码的支持</h4>
+
+<p>在环境变量里设置<code>LANG=zh_CN.UTF-8</code>，<code>LC_ALL=zh_CN.UTF-8</code></p>
+
+<h4>b) 把gem的更新源改为taobao，因为官方的更新源总是被河蟹-_-</h4>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>gem sources --remove http://rubygems.org/
+</span><span class='line'>gem sources -a http://ruby.taobao.org/
+</span><span class='line'>gem sources -l <span class="c">#这里的输出要确保只有taobao一个源</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>c) 安装rdoc和bundler</h4>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>gem install rdoc bundler
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>4. 安装Octopress</h2>
+
+<p>找个合适的目录，执行下面的命令</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># clone octopress代码</span>
+</span><span class='line'>git clone git://github.com/imathis/octopress.git octopress
+</span><span class='line'><span class="nb">cd </span>octopress
+</span><span class='line'>
+</span><span class='line'><span class="c"># 修改octopress的gem源</span>
+</span><span class='line'>vi Gemfile <span class="c"># 或notepad Gemfile</span>
+</span><span class='line'>将行: <span class="nb">source</span> <span class="s2">&quot;http://rubygems.org/&quot;</span>
+</span><span class='line'>改为: <span class="nb">source</span> <span class="s2">&quot;http://ruby.taobao.org/&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># 安装octopress所需的gem组件</span>
+</span><span class='line'>bundle install
+</span><span class='line'>
+</span><span class='line'><span class="c"># 安装默认主题</span>
+</span><span class='line'>rake install
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>5. 关联Github Pages</h2>
+
+<h4>a) 与Github建立连接</h4>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake setup_github_pages
+</span><span class='line'><span class="c"># 按照提示输入Github Pages Repository的url地址，如：git@github.com:xiaoming/xiaoming.github.com.git</span>
+</span><span class='line'><span class="c"># 这时创建了一个githug分支用来保存source文件</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>b) 更新blog配置文件</h4>
+
+<p>更新配置文件<code>octopress/_config.yml</code>，可参考<a href="http://octopress.org/docs/configuring/">官网说明</a>。
+这里就可以给blog起标题副标题神马的了~</p>
+
+<h4>c) 生成静态页面</h4>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake generate
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>d) 本地预览</h4>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake preview
+</span><span class='line'><span class="c"># 可以访问http://localhost:4000查看博客本地效果</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>e) 发送到github上</h4>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake deploy
+</span><span class='line'><span class="c"># 可以访问http://xiaoming.github.com查看实际效果</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>f) 保存source文件到github source分支上</h4>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git add .
+</span><span class='line'>git commit -m <span class="s2">&quot;xiaoming blog source&quot;</span>
+</span><span class='line'><span class="c"># 这里如果要pull，一定要从分支pull</span>
+</span><span class='line'><span class="c"># git pull origin source</span>
+</span><span class='line'>git push origin <span class="nb">source</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>6. 开始写博客啦。。。终于。。。</h2>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># 创建新页面</span>
+</span><span class='line'>rake new_page<span class="o">[</span><span class="s2">&quot;page name&quot;</span><span class="o">]</span>
+</span><span class='line'><span class="c"># 创建新文章</span>
+</span><span class='line'>rake new_post<span class="o">[</span><span class="s2">&quot;blog title&quot;</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>官方说明在<a href="http://octopress.org/docs/blogging/">这里</a></p>
+
+<h4>然后。。。就没有然后了。。。才怪。。。改天继续总结。。。</h4>
+
+<h4>^_^</h4>
+]]></content>
+  </entry>
+  
+</feed>
