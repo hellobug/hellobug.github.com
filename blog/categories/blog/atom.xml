@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Hello Bug~]]></title>
-  <link href="http://hellobug.github.com/atom.xml" rel="self"/>
+  <title><![CDATA[Category: blog | Hello Bug~]]></title>
+  <link href="http://hellobug.github.com/blog/categories/blog/atom.xml" rel="self"/>
   <link href="http://hellobug.github.com/"/>
   <updated>2013-01-11T12:32:31+08:00</updated>
   <id>http://hellobug.github.com/</id>
@@ -12,15 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Powershell里的单引号君和双引号君]]></title>
-    <link href="http://hellobug.github.com/blog/powershell-quotes-rule/"/>
-    <updated>2012-10-26T22:38:00+08:00</updated>
-    <id>http://hellobug.github.com/blog/powershell-quotes-rule</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[[Github Pages + Octopress 搭建篇] - Geek般的写博客呦~]]></title>

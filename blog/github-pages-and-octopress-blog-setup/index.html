@@ -1,192 +1,218 @@
-<p>﻿&#8212;
-layout: post
-title: &#8220;[Github Pages + Octopress 搭建篇] - Geek般的写博客呦~&#8221;
-date: 2012-08-24 01:31
-comments: true</p>
 
-<h2>categories: [blog, octopress, github]</h2>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>[Github Pages + Octopress 搭建篇] - Geek般的写博客呦~ - Hello Bug~</title>
+  <meta name="author" content="hellobug">
 
-<p>一个偶然发现了<a href="http://octopress.org/">Octopress</a>，研究了一下发现真的很有意思~ 其实原理呢就是<a href="http://pages.github.com/">Github pages</a>提供了存储静态页面的空间域名和<a href="https://github.com/mojombo/jekyll">Jekyll</a>（Blog生成工具），支持Markdown格式，而Octopress呢又把Jekyll包装了一下，使用起来更方便，更可以专注在内容上啦~ 好了，开始吧~</p>
+  
+  <meta name="description" content="
+">
+  
 
-<!-- more -->
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  
+  <link rel="canonical" href="http://hellobug.github.com/blog/github-pages-and-octopress-blog-setup/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Hello Bug~" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
-<h2>1. 准备Github Pages</h2>
+  
 
-<p>首先，得有个github账户（假设你用户名是xiaoming），在里面创建一个Repository，名字一定要是<code>xiaoming.github.com</code>，你才能用<code>xiaoming.github.com</code>的域名去访问你的blog~</p>
+</head>
 
-<p>然后，在你Repository的<code>Admin</code>里，左边选<code>Option</code>，右边会看到<code>Github Pages</code>的项，点击<code>Automatic Page Generator</code>按钮到下一页后，直接点击最下面的<code>Continue to Layouts</code>，到达选择模板页，不用选择，一会儿会被Octopress的模板替换掉，直接点击<code>PUBLIS</code>按钮就发布成功了，等一段时间就能生效啦~</p>
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Hello Bug~</a></h1>
+  
+    <h2>~ 角落里总有那么一只小bug，正过着幸福悠哉滴小日子 ~</h2>
+  
+</hgroup>
 
-<h2>2. 准备本地环境</h2>
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:hellobug.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
 
-<p>官方的搭建说明文档在<a href="http://octopress.org/docs/setup/">这里</a>。</p>
-
-<p>由于工作和游戏的种种原因，我使用的“2B青年必备”的Mac下的Win7。。。-_-</p>
-
-<h4>a) Git</h4>
-
-<p>安装<a href="http://git-scm.com/downloads">Git</a></p>
-
-<h4>b) Ruby</h4>
-
-<p>安装<a href="http://rubyforge.org/frs/?group_id=167">RubyInstaller</a> （>=1.9.2）</p>
-
-<h4>c) Gem</h4>
-
-<p>安装<a href="http://rubyinstaller.org/downloads/">DevKit</a><br/>
-然后在命令行执行：</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd </span>path-to-devkit
-</span><span class='line'>ruby dk.rb init
-</span><span class='line'>ruby dk.rb instal
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><em>or</em></p>
-
-<h4>前三步可替换为RailsInstaller</h4>
-
-<p>安装<a href="http://railsinstaller.org/">RailsInstaller</a> (包括了Ruby，Git，Gem)</p>
-
-<h4>d) python</h4>
-
-<p>安装<a href="http://www.python.org/getit/">Python</a>，因为代码高亮系统是基于Python编写的。</p>
-
-<h2>3. 更改本地配置</h2>
-
-<h4>a) 中文utf-8编码的支持</h4>
-
-<p>在环境变量里设置<code>LANG=zh_CN.UTF-8</code>，<code>LC_ALL=zh_CN.UTF-8</code></p>
-
-<h4>b) 把gem的更新源改为taobao，因为官方的更新源总是被河蟹-_-</h4>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>gem sources --remove http://rubygems.org/
-</span><span class='line'>gem sources -a http://ruby.taobao.org/
-</span><span class='line'>gem sources -l <span class="c">#这里的输出要确保只有taobao一个源</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>c) 安装rdoc和bundler</h4>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>gem install rdoc bundler
-</span></code></pre></td></tr></table></div></figure>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">[Github Pages + Octopress 搭建篇] - Geek般的写博客呦~</h1>
+    
+    
+      <p class="meta">
+        
 
 
-<h2>4. 安装Octopress</h2>
-
-<p>找个合适的目录，执行下面的命令</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># clone octopress代码</span>
-</span><span class='line'>git clone git://github.com/imathis/octopress.git octopress
-</span><span class='line'><span class="nb">cd </span>octopress
-</span><span class='line'>
-</span><span class='line'><span class="c"># 修改octopress的gem源</span>
-</span><span class='line'>vi Gemfile <span class="c"># 或notepad Gemfile</span>
-</span><span class='line'>将行: <span class="nb">source</span> <span class="s2">&quot;http://rubygems.org/&quot;</span>
-</span><span class='line'>改为: <span class="nb">source</span> <span class="s2">&quot;http://ruby.taobao.org/&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># 安装octopress所需的gem组件</span>
-</span><span class='line'>bundle install
-</span><span class='line'>
-</span><span class='line'><span class="c"># 安装默认主题</span>
-</span><span class='line'>rake install
-</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>5. 关联Github Pages</h2>
-
-<h4>a) 与Github建立连接</h4>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake setup_github_pages
-</span><span class='line'><span class="c"># 按照提示输入Github Pages Repository的url地址，如：git@github.com:xiaoming/xiaoming.github.com.git</span>
-</span><span class='line'><span class="c"># 这时创建了一个githug分支用来保存source文件</span>
-</span></code></pre></td></tr></table></div></figure>
 
 
-<h4>b) 更新blog配置文件</h4>
-
-<p>更新配置文件<code>octopress/_config.yml</code>，可参考<a href="http://octopress.org/docs/configuring/">官网说明</a>。
-这里就可以给blog起标题副标题神马的了~</p>
-
-<h4>c) 生成静态页面</h4>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake generate
-</span></code></pre></td></tr></table></div></figure>
 
 
-<h4>d) 本地预览</h4>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake preview
-</span><span class='line'><span class="c"># 可以访问http://localhost:4000查看博客本地效果</span>
-</span></code></pre></td></tr></table></div></figure>
+  
 
 
-<h4>e) 发送到github上</h4>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake deploy
-</span><span class='line'><span class="c"># 可以访问http://xiaoming.github.com查看实际效果</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>f) 保存source文件到github source分支上</h4>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>git add .
-</span><span class='line'>git commit -m <span class="s2">&quot;xiaoming blog source&quot;</span>
-</span><span class='line'><span class="c"># 这里如果要pull，一定要从分支pull</span>
-</span><span class='line'><span class="c"># git pull origin source</span>
-</span><span class='line'>git push origin <span class="nb">source</span>
-</span></code></pre></td></tr></table></div></figure>
+<time datetime="2012-08-24T01:31:00+08:00" pubdate data-updated="true">Aug 24<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
 
 
-<h2>6. 开始写博客啦。。。终于。。。</h2>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># 创建新页面</span>
-</span><span class='line'>rake new_page<span class="o">[</span><span class="s2">&quot;page name&quot;</span><span class="o">]</span>
-</span><span class='line'><span class="c"># 创建新文章</span>
-</span><span class='line'>rake new_post<span class="o">[</span><span class="s2">&quot;blog title&quot;</span><span class="o">]</span>
-</span></code></pre></td></tr></table></div></figure>
+<div class="entry-content">
+</div>
 
 
-<p>官方说明在<a href="http://octopress.org/docs/blogging/">这里</a></p>
+  <footer>
+    <p class="meta">
+      
+  
 
-<h4>然后。。。就没有然后了。。。才怪。。。改天继续总结。。。</h4>
+<span class="byline author vcard">Posted by <span class="fn">hellobug</span></span>
 
-<h4>^_^</h4>
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-24T01:31:00+08:00" pubdate data-updated="true">Aug 24<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/blog/'>blog</a>, <a class='category' href='/blog/categories/github/'>github</a>, <a class='category' href='/blog/categories/octopress/'>octopress</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/blog/powershell-quotes-rule/" title="Next Post: Powershell里的单引号君和双引号君">Powershell里的单引号君和双引号君 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/powershell-quotes-rule/">Powershell里的单引号君和双引号君</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/github-pages-and-octopress-blog-setup/">[Github Pages + Octopress 搭建篇] - Geek般的写博客呦~</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - hellobug -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'hellobug';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://hellobug.github.com/blog/github-pages-and-octopress-blog-setup/';
+        var disqus_url = 'http://hellobug.github.com/blog/github-pages-and-octopress-blog-setup/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
