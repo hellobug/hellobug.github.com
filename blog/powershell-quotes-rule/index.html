@@ -9,8 +9,16 @@
   <meta name="author" content="hellobug">
 
   
-  <meta name="description" content="
-">
+  <meta name="description" content="Powershell里怎么使用单引号君'和双引号君"及单引号君的弟弟反单引号君`呢？ 规则1. 单引号（所见即所得） 1
+2
+3
+4
+5
+6
+Write-Host &#39;haha&#39;
+# haha $a = 2
+Write-Host &#39;1 + 1 = $a&#39;
+# 1 + &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -93,7 +101,104 @@
   </header>
 
 
-<div class="entry-content">
+<div class="entry-content"><p>Powershell里怎么使用单引号君<code>'</code>和双引号君<code>"</code>及单引号君的弟弟反单引号君<code>`</code>呢？</p>
+
+<!-- more -->
+
+
+<h3>规则1. 单引号（所见即所得）</h3>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Write-Host <span class="s1">&#39;haha&#39;</span>
+</span><span class='line'><span class="c"># haha</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$a</span> <span class="o">=</span> 2
+</span><span class='line'>Write-Host <span class="s1">&#39;1 + 1 = $a&#39;</span>
+</span><span class='line'><span class="c"># 1 + 1 = $a</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>规则2. 双引号（代换内部变量）</h3>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Write-Host <span class="s2">&quot;haha&quot;</span>
+</span><span class='line'><span class="c"># haha</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$a</span> <span class="o">=</span> 2
+</span><span class='line'>Write-Host <span class="s2">&quot;1 + 1 = $a&quot;</span>
+</span><span class='line'><span class="c"># 1 + 1 = 2</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>规则3. 反单引号（取消变量代换，转义字符，换行连接符）</h3>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#取消变量代换</span>
+</span><span class='line'><span class="nv">$a</span> <span class="o">=</span> 2
+</span><span class='line'>Write-Host <span class="s2">&quot;1 + 1 = `$a&quot;</span>
+</span><span class='line'><span class="c"># 1 + 1 = $a</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#转义字符</span>
+</span><span class='line'>Write-Host <span class="s2">&quot;I said: `&quot;</span>Hello Bug~<span class="sb">`</span><span class="s2">&quot;&quot;</span>
+</span><span class='line'><span class="c"># I said: &quot;Hello Bug~&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#换行连接符</span>
+</span><span class='line'><span class="nv">$a</span> <span class="o">=</span> 1 + <span class="sb">`</span>
+</span><span class='line'>2
+</span><span class='line'>Write-Host <span class="nv">$a</span>
+</span><span class='line'><span class="c"># 3</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>规则4. 想输出，写两遍</h3>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#双引号里的单引号，单引号里的双引号，都直接写就可以输出了</span>
+</span><span class='line'>Write-Host <span class="s2">&quot;ha&#39;ha&quot;</span>
+</span><span class='line'><span class="c"># ha&#39;ha</span>
+</span><span class='line'>Write-Host <span class="s1">&#39;ha&quot;ha&#39;</span>
+</span><span class='line'><span class="c"># ha&quot;ha</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#双引号里的双引号，单引号里的单引号，写两遍就可以输出了</span>
+</span><span class='line'>Write-Host <span class="s2">&quot;ha&quot;&quot;ha&quot;</span>
+</span><span class='line'><span class="c"># ha&quot;ha</span>
+</span><span class='line'>Write-Host <span class="s1">&#39;ha&#39;&#39;ha&#39;</span>
+</span><span class='line'><span class="c"># ha&#39;ha</span>
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
 
 
