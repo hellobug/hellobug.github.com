@@ -18,7 +18,7 @@ article {
       margin: 0;
       &.meta {
         @extend .sans;
-        text-transform: uppercase;
+        /*text-transform: uppercase;*/
         position: absolute; top: 0;
       }
     }
