@@ -1,0 +1,8 @@
+<section>
+	<h1>Categories</h1>
+	<p>
+	{% for category in site.categories %}
+		<a href="{{url}}/{{site.category_dir}}/{{ category | first }}">{{ category | first }}</a>&nbsp;
+	{% endfor %}
+	</p>
+</section>
