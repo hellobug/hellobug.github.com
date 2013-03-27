@@ -4,11 +4,11 @@
   <title><![CDATA[Hello Bug~]]></title>
   <link href="http://hellobug.github.com/atom.xml" rel="self"/>
   <link href="http://hellobug.github.com/"/>
-  <updated>2013-03-27T15:15:50+08:00</updated>
+  <updated>2013-03-27T15:29:00+08:00</updated>
   <id>http://hellobug.github.com/</id>
   <author>
     <name><![CDATA[hellobug]]></name>
-    
+    <email><![CDATA[joy.xczhang+hellobug@gmail.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
