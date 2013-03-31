@@ -9,7 +9,15 @@
   <meta name="author" content="hellobug">
 
   
-  <meta name="description" content="Powershell里怎么使用单引号君'和双引号君"及单引号君的弟弟反单引号君`呢？ ">
+  <meta name="description" content="变量赋值 开始之前先来几个例子，确保起始点是晕的状态～ :P 例1.1 1
+2
+3
+4
+var a = &quot;apple&quot;;
+var b = a;
+a = &quot;banana&quot;;
+b 按理说，b = a后，a是啥值b就应该跟着是啥值了~
+但，b结果是"apple"， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +87,66 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/javascript-variable-assignment/">[JS] 让人犯晕的Javascript变量赋值</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-27T23:17:00+08:00" pubdate data-updated="true">Jan 27<span>th</span>, 2013</time>
+        
+         | <a href="/blog/javascript-variable-assignment/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>变量赋值</h1>
+
+<p>开始之前先来几个例子，确保起始点是晕的状态～ :P</p>
+
+<figure class='code'><figcaption><span>例1.1 </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="s2">&quot;apple&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span><span class="p">;</span>
+</span><span class='line'><span class="nx">a</span> <span class="o">=</span> <span class="s2">&quot;banana&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="nx">b</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>按理说，b = a后，a是啥值b就应该跟着是啥值了~<br/>
+但，<code>b</code>结果是<code>"apple"</code>，还是一开始赋值时a的值。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/javascript-variable-assignment/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -200,10 +268,16 @@
 	
 		<a href="/blog/categories/powershell">powershell</a>&nbsp;
 	
+		<a href="/blog/categories/javascript">javascript</a>&nbsp;
+	
 	</p>
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/javascript-variable-assignment/">[JS] 让人犯晕的Javascript变量赋值</a>
+      </li>
     
       <li class="post">
         <a href="/blog/powershell-quotes-rule/">Powershell里的单引号君和双引号君</a>

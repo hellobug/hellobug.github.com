@@ -1,0 +1,456 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>[JS] 让人犯晕的Javascript变量赋值 - Hello Bug~</title>
+  <meta name="author" content="hellobug">
+
+  
+  <meta name="description" content="变量赋值 开始之前先来几个例子，确保起始点是晕的状态～ :P 例1.1 1
+2
+3
+4
+var a = &quot;apple&quot;;
+var b = a;
+a = &quot;banana&quot;;
+b 按理说，b = a后，a是啥值b就应该跟着是啥值了~
+但，b结果是"apple"， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hellobug.github.com/blog/javascript-variable-assignment">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Hello Bug~" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35681483-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Hello Bug~</a></h1>
+<!--   
+    <h2>~ 角落里总有那么一只小bug，正过着幸福悠哉滴小日子 ~</h2>
+   -->
+</hgroup>
+
+</header>
+  <!-- <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:hellobug.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav> -->
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">[JS] 让人犯晕的Javascript变量赋值</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-27T23:17:00+08:00" pubdate data-updated="true">Jan 27<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>变量赋值</h1>
+
+<p>开始之前先来几个例子，确保起始点是晕的状态～ :P</p>
+
+<figure class='code'><figcaption><span>例1.1 </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="s2">&quot;apple&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span><span class="p">;</span>
+</span><span class='line'><span class="nx">a</span> <span class="o">=</span> <span class="s2">&quot;banana&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="nx">b</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>按理说，b = a后，a是啥值b就应该跟着是啥值了~<br/>
+但，<code>b</code>结果是<code>"apple"</code>，还是一开始赋值时a的值。</p>
+
+<!-- more -->
+
+
+
+
+<figure class='code'><figcaption><span>例1.2 </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;apple&quot;</span><span class="p">};</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span><span class="p">;</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;banana&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="nx">b</span><span class="p">.</span><span class="nx">name</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这回，b又不争气的跟着a变了，<code>b.name</code>结果是<code>"banana"</code></p>
+
+<figure class='code'><figcaption><span>例1.3 </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;apple&quot;</span><span class="p">};</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span><span class="p">;</span>
+</span><span class='line'><span class="nx">a</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;banana&quot;</span><span class="p">};</span>
+</span><span class='line'><span class="nx">b</span><span class="p">.</span><span class="nx">name</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这回b又坚持自己了，<code>b.name</code>结果是<code>"apple"</code></p>
+
+<figure class='code'><figcaption><span>例1.4 </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span><span class="nx">count</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">count</span><span class="p">;</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">count</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</span><span class='line'><span class="nx">b</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>同样<code>b</code>的结果还是最开始的<code>2</code>，b到底是要闹哪样？！<img src="/my-images/emotions/掀桌.jpg"></p>
+
+<p>======================开始解释的分割线==============================</p>
+
+<p>其实b很无辜，这个要从ECMAScript的变量值类型说起~</p>
+
+<p>类型共有两种：</p>
+
+<ul>
+<li><strong>基本类型 (primitive values)</strong> - 包括Undefined, Null, Boolean, Number和String五种基本数据类型</li>
+<li><strong>引用类型 (reference values)</strong> - 保存在内存中的对象们，不能直接操作，只能通过保存在变量中的地址引用对其进行操作</li>
+</ul>
+
+
+<p>现在回来看第一个例子<code>例1.1</code></p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="s2">&quot;apple&quot;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>"apple"</code>是String类型，属于基本类型，这时值是这样储存的：</p>
+
+<p><img src="/my-images/javascript-variable-assignment-1-1.png"></p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这时a的值被copy了一份赋给了b：</p>
+
+<p><img src="/my-images/javascript-variable-assignment-1-2.png"></p>
+
+<p>所以，从此a和b井水不犯河水，各自怎么修改都不会影响对方了~</p>
+
+<p>再来看第二个例子<code>例1.2</code></p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;apple&quot;</span><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>{name: "apple"}</code>是一个Object，属于引用类型，赋值前后值是这样存储的：</p>
+
+<p><img src="/my-images/javascript-variable-assignment-1-3.png"></p>
+
+<p>所以当<code>a.name = "banana";</code>时，修改的是大家共同指向的内存中的object的属性值，所以<code>b.name</code>的值也就跟着变了。</p>
+
+<p><code>例1.3</code>中，</p>
+
+<figure class='code'><figcaption><span>例1.3 </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;apple&quot;</span><span class="p">};</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span><span class="p">;</span>
+</span><span class='line'><span class="nx">a</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;banana&quot;</span><span class="p">};</span>
+</span><span class='line'><span class="c1">// {name: &quot;banana&quot;} 是内存中的一个新的Object了，</span>
+</span><span class='line'><span class="c1">// a变量存储的地址也是指向这个新的Object的了，所以和b又无关了</span>
+</span><span class='line'><span class="nx">b</span><span class="p">.</span><span class="nx">name</span> <span class="c1">//还是&quot;apple&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>例1.4</code>中，</p>
+
+<figure class='code'><figcaption><span>例1.4 </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span><span class="nx">count</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">count</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// a.count是String类型，所以值被copy给b，</span>
+</span><span class='line'><span class="c1">// 从此再怎么修改与b无关了</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">count</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</span><span class='line'><span class="nx">b</span> <span class="c1">//还是2</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>小总结，变量赋值时总是会copy一份的，如果是基本类型，copy的就是实际的值，如果是引用类型，copy的是指向Object的地址值，所以指向的还是同一个Object。</strong></p>
+
+<hr />
+
+<h1>变量比较</h1>
+
+<p>顺手再来看看变量的比较~</p>
+
+<figure class='code'><figcaption><span>例2.1 </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="s2">&quot;apple&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="s2">&quot;apple&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="nx">a</span> <span class="o">==</span> <span class="nx">b</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个没问题，结果肯定是<code>true</code>。</p>
+
+<p>那这个呢？</p>
+
+<figure class='code'><figcaption><span>例2.2 </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;apple&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;apple&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="nx">a</span> <span class="o">==</span> <span class="nx">b</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>虽然俩数组长一模一样，结果还是<code>false</code>。</p>
+
+<p>其实原理还是一样，<strong>对于基本类型，比较的就是实际的值，而对于引用类型（Array也是一种Object），比较的是地址值</strong>，虽然两个数组内容是一样的，但它们在内存中是两个Object，地址是不一样，所以比较的结果是<code>false</code>。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">hellobug</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-27T23:17:00+08:00" pubdate data-updated="true">Jan 27<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/javascript/'>javascript</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/powershell-quotes-rule/" title="Previous Post: Powershell里的单引号君和双引号君">&laquo; Powershell里的单引号君和双引号君</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <ul id="recent_posts">
+      <li class="post">
+      <a href="http://hellobug.github.com" alt="Home"><img src="/images/Home.png"></a>
+      <a href="http://hellobug.github.com/archives/" alt="Archives"><img src="/images/Calendar.png"></a>
+      <a href="mailto:joy.xczhang+hellobug@gmail.com" alt="E-Mail"><img src="/images/Envelope.png"></a>
+      <a href="http://hellobug.github.com/atom.xml" alt="subscribe feed"><img src="/images/rss_big.png"></a>
+      </li>
+  </ul>
+</section>
+<section>
+  <h1>About me</h1>
+  <p>Bug</p>
+</section>
+<section>
+	<h1>Categories</h1>
+	<p>
+	
+		<a href="/blog/categories/blog">blog</a>&nbsp;
+	
+		<a href="/blog/categories/github">github</a>&nbsp;
+	
+		<a href="/blog/categories/octopress">octopress</a>&nbsp;
+	
+		<a href="/blog/categories/powershell">powershell</a>&nbsp;
+	
+		<a href="/blog/categories/javascript">javascript</a>&nbsp;
+	
+	</p>
+</section><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/javascript-variable-assignment/">[JS] 让人犯晕的Javascript变量赋值</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/powershell-quotes-rule/">Powershell里的单引号君和双引号君</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/github-pages-and-octopress-blog-setup/">[Github Pages + Octopress 搭建篇] - Geek般的写博客呦~</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - hellobug -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'hellobug';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://hellobug.github.com/blog/javascript-variable-assignment/';
+        var disqus_url = 'http://hellobug.github.com/blog/javascript-variable-assignment/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
