@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | Hello Bug~]]></title>
   <link href="http://hellobug.github.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://hellobug.github.com/"/>
-  <updated>2013-03-31T15:21:33+08:00</updated>
+  <updated>2013-03-31T15:24:14+08:00</updated>
   <id>http://hellobug.github.com/</id>
   <author>
     <name><![CDATA[hellobug]]></name>
@@ -76,7 +76,7 @@
 </span><span class='line'><span class="nx">b</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>同样<code>b</code>的结果还是最开始的<code>2</code>，b到底是要闹哪样？！<img src="/my-images/emotions/掀桌.jpg"></p>
+<p>同样<code>b</code>的结果还是最开始的<code>2</code>，b到底是要闹哪样？！<img src="/my-images/emotions/xianzhuozi.jpg"></p>
 
 <p>======================开始解释的分割线==============================</p>
 
