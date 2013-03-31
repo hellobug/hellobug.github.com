@@ -4,7 +4,7 @@
   <title><![CDATA[Category: powershell | Hello Bug~]]></title>
   <link href="http://hellobug.github.com/blog/categories/powershell/atom.xml" rel="self"/>
   <link href="http://hellobug.github.com/"/>
-  <updated>2013-03-31T15:30:11+08:00</updated>
+  <updated>2013-03-31T15:39:13+08:00</updated>
   <id>http://hellobug.github.com/</id>
   <author>
     <name><![CDATA[hellobug]]></name>
@@ -25,84 +25,153 @@
 
 <h3>规则1. 单引号（所见即所得）</h3>
 
-<p>{% codeblock lang:bash %}
-Write-Host 'haha'</p>
-
-<h1>haha</h1>
-
-<p>$a = 2
-Write-Host '1 + 1 = $a'</p>
-
-<h1>1 + 1 = $a</h1>
-
-<p>{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Write-Host <span class="s1">&#39;haha&#39;</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;haha&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;<span class="nv">$a</span> <span class="o">=</span> 2
+</span><span class='line'>Write-Host <span class="s1">&#39;1 + 1 = $a&#39;</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;1 + <span class="nv">1</span> <span class="o">=</span> <span class="nv">$a</span>&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h3>规则2. 双引号（代换内部变量）</h3>
 
-<p>{% codeblock lang:bash %}
-Write-Host "haha"</p>
-
-<h1>haha</h1>
-
-<p>$a = 2
-Write-Host "1 + 1 = $a"</p>
-
-<h1>1 + 1 = 2</h1>
-
-<p>{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Write-Host <span class="s2">&quot;haha&quot;</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;haha&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;<span class="nv">$a</span> <span class="o">=</span> 2
+</span><span class='line'>Write-Host <span class="s2">&quot;1 + 1 = $a&quot;</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;1 + <span class="nv">1</span> <span class="o">=</span> 2&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h3>规则3. 反单引号（取消变量代换，转义字符，换行连接符）</h3>
 
-<p>{% codeblock lang:bash %}</p>
-
-<h1>取消变量代换</h1>
-
-<p>$a = 2
-Write-Host "1 + 1 = `$a"</p>
-
-<h1>1 + 1 = $a</h1>
-
-<h1>转义字符</h1>
-
-<p>Write-Host "I said: <code>"Hello Bug~</code>""</p>
-
-<h1>I said: "Hello Bug~"</h1>
-
-<h1>换行连接符</h1>
-
-<p>$a = 1 + `
-2
-Write-Host $a</p>
-
-<h1>3</h1>
-
-<p>{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;取消变量代换&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;<span class="nv">$a</span> <span class="o">=</span> 2
+</span><span class='line'>Write-Host <span class="s2">&quot;1 + 1 = `$a&quot;</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;1 + <span class="nv">1</span> <span class="o">=</span> <span class="nv">$a</span>&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;转义字符&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Write-Host <span class="s2">&quot;I said: &lt;code&gt;&quot;</span>Hello Bug~&lt;/code&gt;<span class="s2">&quot;&quot;</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;I said: <span class="s2">&quot;Hello Bug~&quot;</span>&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;换行连接符&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;<span class="nv">$a</span> <span class="o">=</span> 1 + <span class="sb">`</span>
+</span><span class='line'>2
+</span><span class='line'>Write-Host <span class="nv">$a</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;3&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h3>规则4. 想输出，写两遍</h3>
 
-<p>{% codeblock lang:bash %}</p>
-
-<h1>双引号里的单引号，单引号里的双引号，都直接写就可以输出了</h1>
-
-<p>Write-Host "ha'ha"</p>
-
-<h1>ha'ha</h1>
-
-<p>Write-Host 'ha"ha'</p>
-
-<h1>ha"ha</h1>
-
-<h1>双引号里的双引号，单引号里的单引号，写两遍就可以输出了</h1>
-
-<p>Write-Host "ha""ha"</p>
-
-<h1>ha"ha</h1>
-
-<p>Write-Host 'ha''ha'</p>
-
-<h1>ha'ha</h1>
-
-<p>{% endcodeblock %}</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;双引号里的单引号，单引号里的双引号，都直接写就可以输出了&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Write-Host <span class="s2">&quot;ha&#39;ha&quot;</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;ha<span class="s1">&#39;ha&lt;/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="s1">&lt;p&gt;Write-Host &#39;</span>ha<span class="s2">&quot;ha&#39;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="s2">&lt;h1&gt;ha&quot;</span>ha&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;双引号里的双引号，单引号里的单引号，写两遍就可以输出了&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Write-Host <span class="s2">&quot;ha&quot;&quot;ha&quot;</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;ha<span class="err">&quot;</span>ha&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Write-Host <span class="s1">&#39;ha&#39;&#39;ha&#39;</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;ha<span class="err">&#39;</span>ha&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 ]]></content>
   </entry>
   
