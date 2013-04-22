@@ -5,20 +5,14 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Powershell里的单引号君和双引号君 - Hello Bug~</title>
+  <title>[AngularJS系列(2)] Scope什么的~ - Hello Bug~</title>
   <meta name="author" content="hellobug">
 
   
-  <meta name="description" content="Powershell里怎么使用单引号君'和双引号君"及单引号君的弟弟反单引号君`呢？ 规则1. 单引号（所见即所得） 1
+  <meta name="description" content="Scope是AngularJS里的一个很重要的概念，简单的说它就是用来保存AngularJS Model们的对象，是Model们温暖的小家～ 那这个小家是什么时候造的呢？ 1
 2
-3
-4
-5
-6
-Write-Host &#39;haha&#39;
-# haha $a = 2
-Write-Host &#39;1 + 1 = $a&#39;
-# 1 + &hellip;">
+&lt;html ng-app=&quot;mainApp&quot;&gt;
+&lt;/html&gt; 我们知道， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -27,7 +21,7 @@ Write-Host &#39;1 + 1 = $a&#39;
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://hellobug.github.com/blog/powershell-quotes-rule">
+  <link rel="canonical" href="http://hellobug.github.com/blog/angularjs-scope">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Hello Bug~" type="application/atom+xml">
@@ -91,7 +85,7 @@ Write-Host &#39;1 + 1 = $a&#39;
   
   <header>
     
-      <h1 class="entry-title">Powershell里的单引号君和双引号君</h1>
+      <h1 class="entry-title">[AngularJS系列(2)] Scope什么的~</h1>
     
     
       <p class="meta">
@@ -107,7 +101,7 @@ Write-Host &#39;1 + 1 = $a&#39;
   
 
 
-<time datetime="2012-10-26T22:38:00+08:00" pubdate data-updated="true">Oct 26<span>th</span>, 2012</time>
+<time datetime="2013-03-15T20:47:00+08:00" pubdate data-updated="true">Mar 15<span>th</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -116,46 +110,23 @@ Write-Host &#39;1 + 1 = $a&#39;
   </header>
 
 
-<div class="entry-content"><p>Powershell里怎么使用单引号君<code>'</code>和双引号君<code>"</code>及单引号君的弟弟反单引号君<code>`</code>呢？</p>
+<div class="entry-content"><p>Scope是AngularJS里的一个很重要的概念，简单的说它就是用来保存AngularJS Model们的对象，是Model们温暖的小家～</p>
+
+<p>那这个小家是什么时候造的呢？</p>
 
 <!-- more -->
 
 
-<h3>规则1. 单引号（所见即所得）</h3>
+
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>Write-Host <span class="s1">&#39;haha&#39;</span>
-</span><span class='line'><span class="c"># haha</span>
-</span><span class='line'>
-</span><span class='line'><span class="nv">$a</span> <span class="o">=</span> 2
-</span><span class='line'>Write-Host <span class="s1">&#39;1 + 1 = $a&#39;</span>
-</span><span class='line'><span class="c"># 1 + 1 = $a</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;html</span> <span class="na">ng-app=</span><span class="s">&quot;mainApp&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h3>规则2. 双引号（代换内部变量）</h3>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>Write-Host <span class="s2">&quot;haha&quot;</span>
-</span><span class='line'><span class="c"># haha</span>
-</span><span class='line'>
-</span><span class='line'><span class="nv">$a</span> <span class="o">=</span> 2
-</span><span class='line'>Write-Host <span class="s2">&quot;1 + 1 = $a&quot;</span>
-</span><span class='line'><span class="c"># 1 + 1 = 2</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>规则3. 反单引号（取消变量代换，转义字符，换行连接符）</h3>
+<p>我们知道，<code>ng-app</code>是一个应用启动AngularJS的入口点，在这里也会创建一个root scope，在controller里可以通过<code>$rootScope</code>调到，每个应用只能有一个root scope（当然了～root嘛～），但它会有多个child scope，那啥时候会创建child scope呢？</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -166,54 +137,66 @@ Write-Host &#39;1 + 1 = $a&#39;
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#取消变量代换</span>
-</span><span class='line'><span class="nv">$a</span> <span class="o">=</span> 2
-</span><span class='line'>Write-Host <span class="s2">&quot;1 + 1 = `$a&quot;</span>
-</span><span class='line'><span class="c"># 1 + 1 = $a</span>
-</span><span class='line'>
-</span><span class='line'><span class="c">#转义字符</span>
-</span><span class='line'>Write-Host <span class="s2">&quot;I said: `&quot;</span>Hello Bug~<span class="sb">`</span><span class="s2">&quot;&quot;</span>
-</span><span class='line'><span class="c"># I said: &quot;Hello Bug~&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c">#换行连接符</span>
-</span><span class='line'><span class="nv">$a</span> <span class="o">=</span> 1 + <span class="sb">`</span>
-</span><span class='line'>2
-</span><span class='line'>Write-Host <span class="nv">$a</span>
-</span><span class='line'><span class="c"># 3</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;html</span> <span class="na">ng-app=</span><span class="s">&quot;mainApp&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;body</span> <span class="na">ng-controller=</span><span class="s">&quot;MainCtrl&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;div</span> <span class="na">ng-controller=</span><span class="s">&quot;SubCtrl&quot;</span> <span class="na">ng-include</span> <span class="na">src=</span><span class="s">&quot; &#39;template.html&#39; &quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;ul&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;li</span> <span class="na">ng-repeat=</span><span class="s">&quot;item in items&quot;</span><span class="nt">&gt;</span>{{item.name}}<span class="nt">&lt;/li&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;/ul&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h3>规则4. 想输出，写两遍</h3>
+<p>在上面的例子里，<code>ng-controller</code> <code>ng-include</code> <code>ng-repeat</code>都创建了新的child scope（<code>ng-repeat</code>是对每一个重复的元素都创建了新的child scope），他们之间的父子关系是这样的：</p>
+
+<p><img src="/my-images/angularjs-scope-1-1.png"></p>
+
+<p>包含关系即是他们的父子关系，子scope是可以访问父scope上绑定的所有model和function的。</p>
+
+<p>AngularJS会给scope对应的dom添加叫ng-scope的class，如果我们给自己的应用加这样一个css~</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#双引号里的单引号，单引号里的双引号，都直接写就可以输出了</span>
-</span><span class='line'>Write-Host <span class="s2">&quot;ha&#39;ha&quot;</span>
-</span><span class='line'><span class="c"># ha&#39;ha</span>
-</span><span class='line'>Write-Host <span class="s1">&#39;ha&quot;ha&#39;</span>
-</span><span class='line'><span class="c"># ha&quot;ha</span>
-</span><span class='line'>
-</span><span class='line'><span class="c">#双引号里的双引号，单引号里的单引号，写两遍就可以输出了</span>
-</span><span class='line'>Write-Host <span class="s2">&quot;ha&quot;&quot;ha&quot;</span>
-</span><span class='line'><span class="c"># ha&quot;ha</span>
-</span><span class='line'>Write-Host <span class="s1">&#39;ha&#39;&#39;ha&#39;</span>
-</span><span class='line'><span class="c"># ha&#39;ha</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nc">.ng-scope</span> <span class="p">{</span><span class="k">border</span><span class="o">:</span> <span class="m">2px</span> <span class="k">dotted</span> <span class="nb">red</span><span class="p">;}</span>
 </span></code></pre></td></tr></table></div></figure>
 
+
+<p>通过红色的虚线边框我们也可以看出来大概scope的范围，但注意，并不是所有的ng-scope都是新的scope，有些ng-scope类名对应的dom共享的是同一个scope。</p>
+
+<p>细心的童鞋可能注意到，<code>ng-controller="SubCtrl"</code>和<code>ng-include</code>放在同一个div上了，为啥<code>ng-controller="SubCtrl"</code>就是爸爸，<code>ng-include</code>就是儿子呢？ <br/>
+这个没啥特别的原因，<code>ng-controller</code>在AngularJS底层代码里实现的比较靠前而已，与在div上标明的顺序无关，但是这时会发生一个问题：</p>
+
+<p>假如在<code>ng-include</code>对应的<code>template.html</code>里有这样的代码：</p>
+
+<figure class='code'><figcaption><span>template.html </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;lastName&quot;</span> <span class="nt">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们会发现，在<code>ng-controller="SubCtrl"</code>这个controller里是取不到<code>lastName</code>的值的。</p>
+
+<p>原因是这样的~ <br/>
+我们假设<code>ng-controller="SubCtrl"</code>对应的是<strong>Scope A</strong>，<code>ng-include</code>对应的是<strong>Scope B</strong>~</p>
+
+<ol>
+<li><code>ng-include</code>创建的<strong>Scope B</strong>是<code>ng-controller</code>创建的<strong>Scope A</strong>的子scope，所以在<code>template.html</code>里可以访问<strong>Scope A</strong>的model和function。</li>
+<li>在<code>template.html</code>里用<code>ng-model</code>绑定的model，是存放在<strong>Scope B</strong>上的，<strong>Scope A</strong>是拿不到的，即使model同名。</li>
+</ol>
+
+
+<p>解决方案：</p>
+
+<ul>
+<li>直接对<strong>Scope A</strong>的model绑定成员对象，如<code>ng-model="user.lastName"</code></li>
+<li>或在<code>template.html</code>使用<code>ng-model</code>绑定model时，加上<code>$parent</code>（取父scope），如：<code>ng-model="$parent.lastName"</code>，这样info就绑定在<strong>Scope A</strong>上了</li>
+</ul>
+
+
+<p>比较推荐第一种方式，因为第一种抽象出了对象，比起第二种所有的model都直接绑在$scope上来，封装的更好~</p>
+
+<p><a href="http://docs.angularjs.org/guide/scope">这里是官方Scope介绍~</a></p>
 </div>
 
 
@@ -236,12 +219,12 @@ Write-Host &#39;1 + 1 = $a&#39;
   
 
 
-<time datetime="2012-10-26T22:38:00+08:00" pubdate data-updated="true">Oct 26<span>th</span>, 2012</time>
+<time datetime="2013-03-15T20:47:00+08:00" pubdate data-updated="true">Mar 15<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/powershell/'>powershell</a>
+    <a class='category' href='/blog/categories/angularjs/'>angularjs</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>
   
 </span>
 
@@ -257,10 +240,10 @@ Write-Host &#39;1 + 1 = $a&#39;
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/github-pages-and-octopress-blog-setup/" title="Previous Post: [Github Pages + Octopress 搭建篇] - Geek般的写博客呦~">&laquo; [Github Pages + Octopress 搭建篇] - Geek般的写博客呦~</a>
+        <a class="basic-alignment left" href="/blog/angularjs-introduction/" title="Previous Post: [AngularJS系列(1)] 感受篇~">&laquo; [AngularJS系列(1)] 感受篇~</a>
       
       
-        <a class="basic-alignment right" href="/blog/javascript-variable-assignment/" title="Next Post: [JS] 让人犯晕的Javascript变量赋值">[JS] 让人犯晕的Javascript变量赋值 &raquo;</a>
+        <a class="basic-alignment right" href="/blog/angularjs-two-ways-binding/" title="Next Post: [AngularJS系列(3)] View-Model双向绑定背后的故事~">[AngularJS系列(3)] View-Model双向绑定背后的故事~ &raquo;</a>
       
     </p>
   </footer>
@@ -362,8 +345,8 @@ Write-Host &#39;1 + 1 = $a&#39;
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://hellobug.github.com/blog/powershell-quotes-rule/';
-        var disqus_url = 'http://hellobug.github.com/blog/powershell-quotes-rule/';
+        var disqus_identifier = 'http://hellobug.github.com/blog/angularjs-scope/';
+        var disqus_url = 'http://hellobug.github.com/blog/angularjs-scope/';
         var disqus_script = 'embed.js';
       
     (function () {

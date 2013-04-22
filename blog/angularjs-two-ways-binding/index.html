@@ -1,0 +1,389 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>[AngularJS系列(3)] View-Model双向绑定背后的故事~ - Hello Bug~</title>
+  <meta name="author" content="hellobug">
+
+  
+  <meta name="description" content="剧情开始之前，先介绍一下重要背景~三个概念~ Dirty Checking – AngularJS内部比较value现在的值和之前的值，如果发生了改变，就触发change事件。
+Digest – 执行Dirty Checking的机制，由$digest()触发。
+Apply – &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hellobug.github.com/blog/angularjs-two-ways-binding">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Hello Bug~" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35681483-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Hello Bug~</a></h1>
+<!--   
+    <h2>~ 角落里总有那么一只小bug，正过着幸福悠哉滴小日子 ~</h2>
+   -->
+</hgroup>
+
+</header>
+  <!-- <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:hellobug.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav> -->
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">[AngularJS系列(3)] View-Model双向绑定背后的故事~</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-27T22:13:00+08:00" pubdate data-updated="true">Mar 27<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>剧情开始之前，先介绍一下重要背景~三个概念~</p>
+
+<ul>
+<li><strong>Dirty Checking</strong> – AngularJS内部比较value现在的值和之前的值，如果发生了改变，就触发change事件。</li>
+<li><strong>Digest</strong> – 执行<code>Dirty Checking</code>的机制，由$digest()触发。</li>
+<li><strong>Apply</strong> – 当dom事件在AngularJS机制外被触发时，需要通知AngularJS进行<code>Digest</code>。由<code>$apply()</code>触发。</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h1>$digest()</h1>
+
+<p><img src="/my-images/angularjs-2-ways-1-1.png"></p>
+
+<p>Digest就像AngularJS的心跳一样~ <br/>
+它每50ms蹦一次，蹦的时候会触发所属的scope和其所有子scope的dirty checking，dirty checking又会触发$watch()（马上会介绍<code>$watch()</code>），整个Angular双向绑定机制就活了起来~（有人可能会问了，蹦的这么频繁，性能体验神马的都没问题么？一会儿咱专门聊这个哈~）
+注意：不建议直接调用<code>$scope.$digest()</code>，而应该使用<code>$scope.$apply()</code>，原因一会儿细说~</p>
+
+<h1>$watch()</h1>
+
+<p><img src="/my-images/angularjs-2-ways-1-2.png"></p>
+
+<p>每个成功的digest背后都有一群好watch~</p>
+
+<ul>
+<li>在digest执行时，如果<code>watch</code>观察的value与上次执行时不一样时，就会被触发</li>
+<li>AngularJS内部的watch实现了页面随model的及时更新</li>
+<li>也可手动调用~ <br/>
+  <strong>参数1</strong>：待观察的value <br/>
+  <strong>参数2</strong>：value改变时想执行的操作 <br/>
+  <strong>参数3</strong>：true表示比较的是值，而不是引用，由于javascript对象比较比较的是引用地址（可参考<a href="/blog/javascript-variable-assignment/" title="[JS] 让人犯晕的Javascript变量赋值">这篇blog</a>），所以即使重新赋值了相同的内容，也会触发change事件，而大部分时候，对于相同的内容，我们不希望执行watch里的操作，所以可以把第三个参数设置成true。</li>
+</ul>
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">$scope</span><span class="p">.</span><span class="nx">$watch</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">newValue</span><span class="p">,</span> <span class="nx">oldValue</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="cm">/* Do something here */</span>
+</span><span class='line'><span class="p">},</span> <span class="kc">true</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>$apply()</h1>
+
+<p><img src="/my-images/angularjs-2-ways-1-3.png"></p>
+
+<p>我们可以把<code>apply</code>看成个给AngularJS送信的~ <br/>
+<code>$scope.$apply()</code>会触发digest，如果有一个function参数，function会先被执行，再digest~</p>
+
+<p><strong>应该啥时候用呢？</strong> <br/>
+当dom事件在AngularJS机制外被触发时~</p>
+
+<p><strong>什么样的情况算机制外呢？</strong><br/>
+喂，jQuery，你就别看别人了~！！</p>
+
+<p>现在到这个问题了，<strong>为啥推荐使用<code>$apply</code>而不是<code>$digest</code>？</strong>  <br/>
+因为<code>$apply</code>其实不能把信直接送给<code>$digest</code>，之间还有<code>$eval</code>门卫把关，如果<code>$apply</code>带的表达式不合法，<code>$eval</code>会把错误送交<code>$exceptionHandler service</code>，合法才触发digest，所以更安全~</p>
+
+<p><strong>举个栗子~</strong></p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">ng-blur=</span><span class="s">&quot;closeDialog()&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">myApp</span><span class="p">.</span><span class="nx">directive</span><span class="p">(</span><span class="s1">&#39;ngBlur&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>     <span class="k">return</span> <span class="p">{</span>
+</span><span class='line'>          <span class="nx">restrict</span><span class="o">:</span><span class="s1">&#39;A&#39;</span><span class="p">,</span>
+</span><span class='line'>          <span class="nx">link</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">scope</span><span class="p">,</span> <span class="nx">element</span><span class="p">,</span> <span class="nx">attrs</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>               <span class="nx">$</span><span class="p">(</span><span class="nx">elelment</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;blur&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>                    <span class="nx">scope</span><span class="p">.</span><span class="nx">$apply</span><span class="p">(</span><span class="nx">attrs</span><span class="p">.</span><span class="nx">ngBlur</span><span class="p">);</span>
+</span><span class='line'>               <span class="p">});</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>     <span class="p">};</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>jQuery对blur事件的绑定就属于AngularJS机制外触发，必须使用<code>$apply</code>才能生效。</p>
+
+<h1>Performance</h1>
+
+<p>下面开始说性能了，50ms跳一次，受不受得了呢？</p>
+
+<p><strong>先来看两条科学研究的结果：</strong></p>
+
+<ul>
+<li><strong>人对变化的反应是慢的</strong>：任何比50ms还快的变化都是不可被察觉的~</li>
+<li><strong>人对信息的处理能力是有限的</strong>：在一页处理2000条信息已经算是极限了，再多的信息量往一页上堆只能说是不好的设计了，而且人也无法处理了~</li>
+</ul>
+
+
+<p>所以问题就演变为：<strong>我们能不能在50ms里做2000次比较呢？</strong> <br/>
+其实，以现在的技术来说，即使是很慢的浏览器也没问题的。当然如果每个比较都写的特别复杂就另说了~也就是说在写watch语句时，如果要watch的语句太复杂的话，看看是不是可以重构简化一下啦~</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">hellobug</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-27T22:13:00+08:00" pubdate data-updated="true">Mar 27<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/angularjs/'>angularjs</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/angularjs-scope/" title="Previous Post: [AngularJS系列(2)] Scope什么的~">&laquo; [AngularJS系列(2)] Scope什么的~</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <ul id="recent_posts">
+      <li class="post">
+      <a href="http://hellobug.github.com" title="Home" alt="Home"><img src="/images/Home.png"></a>
+      <a href="http://hellobug.github.com/archives/" title="Archives" alt="Archives"><img src="/images/Calendar.png"></a>
+      <a href="mailto:joy.xczhang+hellobug@gmail.com" title="Email" alt="E-Mail"><img src="/images/Envelope.png"></a>
+      <a href="http://hellobug.github.com/atom.xml" title="Subscribe feed" alt="subscribe feed"><img src="/images/rss_big.png"></a>
+      </li>
+  </ul>
+</section>
+<section>
+  <h1>About me</h1>
+  <p>Just a bug.</p>
+</section>
+<section>
+	<h1>Categories</h1>
+	<p>
+	
+		<a href="/blog/categories/blog">blog</a>&nbsp;
+	
+		<a href="/blog/categories/github">github</a>&nbsp;
+	
+		<a href="/blog/categories/octopress">octopress</a>&nbsp;
+	
+		<a href="/blog/categories/powershell">powershell</a>&nbsp;
+	
+		<a href="/blog/categories/javascript">javascript</a>&nbsp;
+	
+		<a href="/blog/categories/angularjs">angularjs</a>&nbsp;
+	
+	</p>
+</section><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/angularjs-two-ways-binding/">[AngularJS系列(3)] View-Model双向绑定背后的故事~</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/angularjs-scope/">[AngularJS系列(2)] Scope什么的~</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/angularjs-introduction/">[AngularJS系列(1)] 感受篇~</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/javascript-variable-assignment/">[JS] 让人犯晕的Javascript变量赋值</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/powershell-quotes-rule/">Powershell里的单引号君和双引号君</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/github-pages-and-octopress-blog-setup/">[Github Pages + Octopress 搭建篇] - Geek般的写博客呦~</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - hellobug -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'hellobug';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://hellobug.github.com/blog/angularjs-two-ways-binding/';
+        var disqus_url = 'http://hellobug.github.com/blog/angularjs-two-ways-binding/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

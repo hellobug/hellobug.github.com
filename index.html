@@ -9,15 +9,9 @@
   <meta name="author" content="hellobug">
 
   
-  <meta name="description" content="变量赋值 开始之前先来几个例子，确保起始点是晕的状态～ :P 例1.1 1
-2
-3
-4
-var a = &quot;apple&quot;;
-var b = a;
-a = &quot;banana&quot;;
-b 按理说，b = a后，a是啥值b就应该跟着是啥值了~
-但，b结果是"apple"， &hellip;">
+  <meta name="description" content="剧情开始之前，先介绍一下重要背景~三个概念~ Dirty Checking – AngularJS内部比较value现在的值和之前的值，如果发生了改变，就触发change事件。
+Digest – 执行Dirty Checking的机制，由$digest()触发。
+Apply – &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -87,6 +81,144 @@ b 按理说，b = a后，a是啥值b就应该跟着是啥值了~
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/angularjs-two-ways-binding/">[AngularJS系列(3)] View-Model双向绑定背后的故事~</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-27T22:13:00+08:00" pubdate data-updated="true">Mar 27<span>th</span>, 2013</time>
+        
+         | <a href="/blog/angularjs-two-ways-binding/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>剧情开始之前，先介绍一下重要背景~三个概念~</p>
+
+<ul>
+<li><strong>Dirty Checking</strong> – AngularJS内部比较value现在的值和之前的值，如果发生了改变，就触发change事件。</li>
+<li><strong>Digest</strong> – 执行<code>Dirty Checking</code>的机制，由$digest()触发。</li>
+<li><strong>Apply</strong> – 当dom事件在AngularJS机制外被触发时，需要通知AngularJS进行<code>Digest</code>。由<code>$apply()</code>触发。</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/angularjs-two-ways-binding/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/angularjs-scope/">[AngularJS系列(2)] Scope什么的~</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-15T20:47:00+08:00" pubdate data-updated="true">Mar 15<span>th</span>, 2013</time>
+        
+         | <a href="/blog/angularjs-scope/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Scope是AngularJS里的一个很重要的概念，简单的说它就是用来保存AngularJS Model们的对象，是Model们温暖的小家～</p>
+
+<p>那这个小家是什么时候造的呢？</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/angularjs-scope/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/angularjs-introduction/">[AngularJS系列(1)] 感受篇~</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-12T20:10:00+08:00" pubdate data-updated="true">Mar 12<span>th</span>, 2013</time>
+        
+         | <a href="/blog/angularjs-introduction/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>先来俩栗子感受一下~</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/angularjs-introduction/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -270,10 +402,24 @@ b 按理说，b = a后，a是啥值b就应该跟着是啥值了~
 	
 		<a href="/blog/categories/javascript">javascript</a>&nbsp;
 	
+		<a href="/blog/categories/angularjs">angularjs</a>&nbsp;
+	
 	</p>
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/angularjs-two-ways-binding/">[AngularJS系列(3)] View-Model双向绑定背后的故事~</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/angularjs-scope/">[AngularJS系列(2)] Scope什么的~</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/angularjs-introduction/">[AngularJS系列(1)] 感受篇~</a>
+      </li>
     
       <li class="post">
         <a href="/blog/javascript-variable-assignment/">[JS] 让人犯晕的Javascript变量赋值</a>
