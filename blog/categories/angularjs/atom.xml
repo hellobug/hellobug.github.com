@@ -4,7 +4,7 @@
   <title><![CDATA[Category: angularjs | Hello Bug~]]></title>
   <link href="http://hellobug.github.com/blog/categories/angularjs/atom.xml" rel="self"/>
   <link href="http://hellobug.github.com/"/>
-  <updated>2013-05-29T00:13:18+08:00</updated>
+  <updated>2013-09-27T22:18:41+08:00</updated>
   <id>http://hellobug.github.com/</id>
   <author>
     <name><![CDATA[hellobug]]></name>
@@ -12,6 +12,222 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[AngularJS系列(5-1)] Directive - 开场小介绍]]></title>
+    <link href="http://hellobug.github.com/blog/angularjs-directive-1-basic-introduction/"/>
+    <updated>2013-08-04T22:35:00+08:00</updated>
+    <id>http://hellobug.github.com/blog/angularjs-directive-1-basic-introduction</id>
+    <content type="html"><![CDATA[<p>Directive其实就是让html变得更强大的一种方法。它可以根据需求对dom变形，或注入行为。</p>
+
+<p>觉得它很神秘么，其实一点儿也不神秘，只要开始使用AngularJS了，就一定在使用着Directive，比如我们在html上写的那些<code>ng-controller</code>，<code>ng-model</code>，<code>ng-show</code>等等都是AngularJS提供的Directive啊~</p>
+
+<p>那到底内部是怎么实现的呢？或者如果觉得AngularJS内置提供的Directive不给力咋办？现在咱们就自己做一个试试看吧~</p>
+
+<!-- more -->
+
+
+<p><img src="/my-images/angularjs-directive-1-address-inputs.png"></p>
+
+<p>先来个比较简单的需求，假如我们的应用经常要用到地址信息的输入选项，如果不自定义directive，html要写成这样~</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;address&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;label&gt;</span>
+</span><span class='line'>        国家:<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;country&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/label&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;label&gt;</span>
+</span><span class='line'>        城市:<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;city&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/label&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;label&gt;</span>
+</span><span class='line'>        街道详情:<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;address&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/label&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;label&gt;</span>
+</span><span class='line'>        邮编:<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;zipcode&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/label&gt;</span>
+</span><span class='line'><span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>这样的代码可能要写多次，给维护也添加了复杂度。
+如果自定义个地址的directive，代码如下：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>之前的html </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;div</span> <span class="na">my-address</span><span class="nt">&gt;</span> <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>抽出来的html模板，名称为address.html </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;address&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;label&gt;</span>
+</span><span class='line'>        国家:<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;country&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/label&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;label&gt;</span>
+</span><span class='line'>        城市:<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;city&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/label&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;label&gt;</span>
+</span><span class='line'>        街道详情:<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;address&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/label&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;label&gt;</span>
+</span><span class='line'>        邮编:<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;zipcode&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/label&gt;</span>
+</span><span class='line'><span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>directive的定义 </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">directive</span><span class="p">(</span><span class="s2">&quot;myAddress&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">return</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">restrict</span><span class="o">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span>
+</span><span class='line'><span class="nx">templateUrl</span><span class="o">:</span> <span class="s2">&quot;address.html&quot;</span><span class="p">,</span>
+</span><span class='line'><span class="nx">replace</span><span class="o">:</span> <span class="kc">true</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">}</span>
+</span><span class='line'><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>命名</h2>
+
+<p>可能有人注意到了，在html里标签上定义的属性叫<code>my-address</code>，可是在js里定义directive时写的名字是<code>myAddress</code>，这能对应上么？</p>
+
+<p>其实是可以的，不仅如此，下列格式都可以识别出来~</p>
+
+<ul>
+<li>my:address</li>
+<li>my-address (推荐)</li>
+<li>my_address</li>
+<li>x-my-address</li>
+<li>data-my-address</li>
+</ul>
+
+
+<p>但是由于html不区分大小写和标准写法是用中横线<code>-</code>的特性，比较推荐<code>my-address</code>这种写法，既简洁又遵循html的规则。</p>
+
+<h2>声明形式限制</h2>
+
+<p><code>restrict: "A"</code> 这一句表示对directive声明形式的限制，一共有四种：</p>
+
+<ul>
+<li><code>E</code>: <code>&lt;my-address&gt;&lt;/my-address&gt;</code> Element Name 标签名</li>
+<li><code>A</code>: <code>&lt;div my-address="exp"&gt;&lt;/div&gt;</code> Attribute 属性名（默认值）</li>
+<li><code>C</code>: <code>&lt;div class="my-address: exp;"&gt;&lt;/div&gt;</code> Class 类名</li>
+<li><code>M</code>: <code>&lt;!-- directive: my-address exp --&gt;</code> Comment 注释</li>
+</ul>
+
+
+<p>其实不写也可以，因为如果不写，默认就是<code>restrict: "A"</code></p>
+
+<p>如果想支持多项，可以写成<code>restrict: "EA"</code>，这样就又支持标签的写法，又支持属性的写法</p>
+
+<p>虽然一共有四种可以选择，但后两种并不推荐~</p>
+
+<ul>
+<li>类应该更多的是与样式相关，而且将directive名混杂在一群类名里，可读性也不好</li>
+<li>注释就更不可靠了，将重要的逻辑写在注释里，太容易被忽略了</li>
+</ul>
+
+
+<h2>Html内容模板指定</h2>
+
+<p><code>templateUrl: "address.html"</code>指定了模板的Url路径，如果想直接写html内容也可以用：<br/>
+<code>template: "&lt;div class='address'&gt;blabla&lt;/div&gt;"</code></p>
+
+<p>下面的<code>replace: true</code>表示模板html内容是否会替换<code>&lt;div my-address&gt;&lt;/div&gt;</code>，还是插入到<code>&lt;div my-address&gt;&lt;/div&gt;</code>元素里，默认是<code>false</code></p>
+
+<h2>最后</h2>
+
+<p>这样一个简单的directive就写好了，其实如果只是想抽html模板的话，还可以用<code>ng-include</code>，相当上上面例子里<code>replace:false</code>的效果~</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>使用ng-include的版本 </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>//注意这里是单引号套着双引号，外面一层引号是表示标签属性的值，里面一层引号表示直接给的模板名称，因为这里也可以通过表达式的返回值来取<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;div</span> <span class="na">ng-include=</span><span class="s">&#39;&quot;address.html&quot;&#39;</span><span class="nt">&gt;</span> <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>貌似更简单。。。那前面说那么多干嘛？！<br/>
+这不是为了熟悉directive嘛~ -_-|||</p>
+
+<p>想自己动手试试，就猛戳<a href="http://plnkr.co/edit/ZgRpLtlRPsGWL14m7J3p">这里</a>吧~</p>
+
+<p>其实directive的世界搭滴恨(小纪念一下在西安悠哉的小日子)，下集待续。。。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[AngularJS系列(4)] 那伤不起的provider们啊~ (provider, value, constant, service, factory, decorator)]]></title>

@@ -2,46 +2,50 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://hellobug.github.com/blog/github-pages-and-octopress-blog-setup/</loc>
-        <lastmod>2013-05-12T22:35:36+08:00</lastmod>
+        <lastmod>2013-09-18T23:27:39+08:00</lastmod>
     </url>
     <url>
         <loc>http://hellobug.github.com/blog/powershell-quotes-rule/</loc>
-        <lastmod>2013-05-12T22:45:25+08:00</lastmod>
+        <lastmod>2013-09-18T23:27:39+08:00</lastmod>
     </url>
     <url>
         <loc>http://hellobug.github.com/blog/javascript-variable-assignment/</loc>
-        <lastmod>2013-05-10T17:43:36+08:00</lastmod>
+        <lastmod>2013-09-27T22:18:19+08:00</lastmod>
     </url>
     <url>
         <loc>http://hellobug.github.com/blog/angularjs-introduction/</loc>
-        <lastmod>2013-05-10T17:43:36+08:00</lastmod>
+        <lastmod>2013-09-18T23:27:39+08:00</lastmod>
     </url>
     <url>
         <loc>http://hellobug.github.com/blog/angularjs-scope/</loc>
-        <lastmod>2013-05-10T17:43:36+08:00</lastmod>
+        <lastmod>2013-09-18T23:27:39+08:00</lastmod>
     </url>
     <url>
         <loc>http://hellobug.github.com/blog/angularjs-two-ways-binding/</loc>
-        <lastmod>2013-05-10T17:43:36+08:00</lastmod>
+        <lastmod>2013-09-18T23:27:39+08:00</lastmod>
     </url>
     <url>
         <loc>http://hellobug.github.com/blog/angularjs-providers/</loc>
-        <lastmod>2013-05-29T00:11:07+08:00</lastmod>
+        <lastmod>2013-09-18T23:27:39+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hellobug.github.com/blog/angularjs-directive-1-basic-introduction/</loc>
+        <lastmod>2013-09-27T21:59:44+08:00</lastmod>
     </url>
     <url>
         <loc>http://hellobug.github.com/archives/</loc>
-        <lastmod>2013-05-29T00:11:07+08:00</lastmod>
+        <lastmod>2013-09-27T22:18:19+08:00</lastmod>
     </url>
     <url>
         <loc>http://hellobug.github.com/blog/archives/</loc>
-        <lastmod>2013-05-29T00:11:07+08:00</lastmod>
+        <lastmod>2013-09-27T22:18:19+08:00</lastmod>
     </url>
     <url>
         <loc>http://hellobug.github.com/</loc>
-        <lastmod>2013-05-29T00:11:07+08:00</lastmod>
+        <lastmod>2013-09-27T22:18:19+08:00</lastmod>
     </url>
     <url>
         <loc>http://hellobug.github.com/robots.txt</loc>
-        <lastmod>2013-05-10T17:43:36+08:00</lastmod>
+        <lastmod>2013-09-18T23:27:18+08:00</lastmod>
     </url>
 </urlset>

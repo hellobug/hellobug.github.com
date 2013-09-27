@@ -257,7 +257,7 @@ b 按理说，b = a后，a是啥值b就应该跟着是啥值了~
 <span class='line-number'>6</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span><span class="nx">count</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">count</span><span class="p">;</span>
-</span><span class='line'><span class="c1">// a.count是String类型，所以值被copy给b，</span>
+</span><span class='line'><span class="c1">// a.count是Number类型，所以值被copy给b，</span>
 </span><span class='line'><span class="c1">// 从此再怎么修改与b无关了</span>
 </span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">count</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
 </span><span class='line'><span class="nx">b</span> <span class="c1">//还是2</span>
@@ -395,6 +395,10 @@ b 按理说，b = a后，a是啥值b就应该跟着是啥值了~
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/angularjs-directive-1-basic-introduction/">[AngularJS系列(5-1)] Directive - 开场小介绍</a>
+      </li>
     
       <li class="post">
         <a href="/blog/angularjs-providers/">[AngularJS系列(4)] 那伤不起的provider们啊~ (provider, value, constant, service, factory, decorator)</a>
