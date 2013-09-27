@@ -106,7 +106,7 @@ b.name //还是"apple"
 {% codeblock lang:js 例1.4 %}
 var a = {count: 2};
 var b = a.count;
-// a.count是String类型，所以值被copy给b，
+// a.count是Number类型，所以值被copy给b，
 // 从此再怎么修改与b无关了
 a.count = 3;
 b //还是2
