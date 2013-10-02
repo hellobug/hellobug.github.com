@@ -85,7 +85,7 @@ delicious_user:
 delicious_count: 3
 
 # Disqus Comments
-disqus_short_name: joyzhang
+disqus_short_name: hellobug
 disqus_show_comment_count: true
 
 # Google Analytics
