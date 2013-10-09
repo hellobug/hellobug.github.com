@@ -4,7 +4,7 @@
   <title><![CDATA[Hello Bug~]]></title>
   <link href="http://hellobug.github.com/atom.xml" rel="self"/>
   <link href="http://hellobug.github.com/"/>
-  <updated>2013-10-10T00:38:14+08:00</updated>
+  <updated>2013-10-10T00:39:49+08:00</updated>
   <id>http://hellobug.github.com/</id>
   <author>
     <name><![CDATA[hellobug]]></name>
@@ -12,6 +12,221 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[AngularJS系列(5-2)] Directive - Compile vs. Link]]></title>
+    <link href="http://hellobug.github.com/blog/angularjs-directive-2-compile-vs-link/"/>
+    <updated>2013-08-14T20:35:00+08:00</updated>
+    <id>http://hellobug.github.com/blog/angularjs-directive-2-compile-vs-link</id>
+    <content type="html"><![CDATA[<p>还是先从栗子们看起~</p>
+
+<p>如果我想实现这样一个功能，当一个input失去光标焦点时(blur)，执行一些语句，比如当输入用户名后，向后台发ajax请求查询用户名是否已经存在，好有及时的页面相应。</p>
+
+<p>输入 <strong>hellobug</strong>   <br/>
+<img src="http://hellobug.github.com/my-images/angularjs-directive-2-input-focus.png"></p>
+
+<p>失去焦点后提示 <strong>hellobug</strong> 这个用户名已经存在  <br/>
+<img src="http://hellobug.github.com/my-images/angularjs-directive-2-input-blur.png"></p>
+
+<!-- more -->
+
+
+<p>代码如下：</p>
+
+<figure class='code'><figcaption><span>HTML </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;body</span> <span class="na">ng-controller=</span><span class="s">&quot;MainCtrl&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;lable&gt;</span>用户名:
+</span><span class='line'>    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;username&quot;</span> <span class="na">ng-blur=</span><span class="s">&quot;checkUsername()&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;span</span> <span class="na">style=</span><span class="s">&quot;color:red;&quot;</span> <span class="na">ng-show=</span><span class="s">&quot;usernameAlreadyExist&quot;</span><span class="nt">&gt;</span>用户名已经存在<span class="nt">&lt;/span&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/lable&gt;</span>
+</span><span class='line'><span class="nt">&lt;/body&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>controller和directive的定义 </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;MainCtrl&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$scope</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">$scope</span><span class="p">.</span><span class="nx">checkUsername</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">//send ajax to check on server</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">username</span> <span class="o">===</span> <span class="s1">&#39;hellobug&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">$scope</span><span class="p">.</span><span class="nx">usernameAlreadyExist</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">directive</span><span class="p">(</span><span class="s1">&#39;ngBlur&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$document</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">return</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">link</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span> <span class="nx">element</span><span class="p">,</span> <span class="nx">attrs</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">$</span><span class="p">(</span><span class="nx">element</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;blur&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+</span><span class='line'>         <span class="nx">scope</span><span class="p">.</span><span class="nx">$apply</span><span class="p">(</span><span class="nx">attrs</span><span class="p">.</span><span class="nx">ngBlur</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">});</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在上面的例子里，directive返回对象里定义的<code>link</code>方法在blur事件触发时执行了scope上的<code>checkUsername()</code>方法。</p>
+
+<p>如果是只有<code>link</code>方法，也可以简单的写成下面这种形式~直接返回<code>link</code>对应的function~</p>
+
+<figure class='code'><figcaption><span>directive的简单写法 </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">directive</span><span class="p">(</span><span class="s1">&#39;ngBlur&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$document</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span> <span class="nx">element</span><span class="p">,</span> <span class="nx">attrs</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="nx">element</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;blur&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+</span><span class='line'>       <span class="nx">scope</span><span class="p">.</span><span class="nx">$apply</span><span class="p">(</span><span class="nx">attrs</span><span class="p">.</span><span class="nx">ngBlur</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<p>再来这样一个功能，我想让内容为<code>哈哈哈哈</code>的dom元素重复n遍，n是自定义的，以达到某种满屏大笑丧心病狂的效果 -_-，我知道<code>ng-repeat</code>就已经能干这事儿了，但是如果自己实现一下呢~</p>
+
+<figure class='code'><figcaption><span>HTML </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;ul</span> <span class="na">repeater=</span><span class="s">&quot;20&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;li&gt;</span>哈哈哈哈<span class="nt">&lt;/li&gt;</span>
+</span><span class='line'><span class="nt">&lt;/ul&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>directive的定义 </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">directive</span><span class="p">(</span><span class="s1">&#39;repeater&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$document</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">return</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">restrict</span><span class="o">:</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">compile</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">attrs</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">template</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">element</span><span class="p">).</span><span class="nx">children</span><span class="p">().</span><span class="nx">clone</span><span class="p">();</span>
+</span><span class='line'>      <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">attrs</span><span class="p">.</span><span class="nx">repeater</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="nx">element</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">template</span><span class="p">.</span><span class="nx">clone</span><span class="p">());</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在上面例子的<code>compile</code>方法里，子元素被复制成了<code>repeater</code>制定的数量。</p>
+
+<hr />
+
+<p>什么时候用compile，什么时候用link呢，或者两者可不可以一起用呢？</p>
+
+<p>先从directive是如何在angular手下生效的说起吧~</p>
+
+<h2>编译三阶段：</h2>
+
+<h3>1. 标准浏览器API转化</h3>
+
+<p>将html转化成dom，所以自定义的html标签必须符合html的格式</p>
+
+<h3>2. Angular compile</h3>
+
+<p>搜索匹配directive，按照<code>priority</code>排序，并执行directive上的<code>compile</code>方法</p>
+
+<h3>3. Angular link</h3>
+
+<p>执行directive上的<code>link</code>方法，进行scope绑定及事件绑定</p>
+
+<h2>为什么编译的过程要分成compile和link?</h2>
+
+<p>简单的说就是为了解决性能问题，特别是那种model变化会影响dom结构变化的，而变化的结构还会有新的scope绑定及事件绑定，比如<code>ng-repeat</code></p>
+
+<h2><code>compile</code>和<code>link</code>的形式</h2>
+
+<h3>compile</h3>
+
+<ul>
+<li><code>function compile(element, attrs, transclude) { ... }</code></li>
+<li>在compile阶段要执行的函数，返回的function就是link时要执行的function</li>
+<li>常用参数为<code>element</code>和<code>attrs</code>，分别是dom元素和元素上的属性们，其它的以后细说</li>
+<li>较少使用，因为大部分directive是处理dom元素的行为绑定，而不是改变它们</li>
+</ul>
+
+
+<h3>link</h3>
+
+<ul>
+<li><code>function link(scope, element, attrs, controller) { ... }</code></li>
+<li>在link阶段要执行的函数，这个属性只有当compile属性没有设置时才生效</li>
+<li>常用参数为<code>scope</code>，<code>element</code>和<code>attrs</code>，分别是当前元素所在的scope，dom元素和元素上的属性们，其它的以后细说</li>
+<li>directive基本上都会有此函数，可以注册事件，并与scope相绑</li>
+</ul>
+
+
+<h2><code>compile</code>和<code>link</code>的使用时机</h2>
+
+<h3>compile</h3>
+
+<ul>
+<li>想在dom渲染前对它进行变形，并且不需要scope参数</li>
+<li>想在所有相同directive里共享某些方法，这时应该定义在compile里，性能会比较好</li>
+<li>返回值就是link的function，这时就是共同使用的时候</li>
+</ul>
+
+
+<h3>link</h3>
+
+<ul>
+<li>对特定的元素注册事件</li>
+<li>需要用到scope参数来实现dom元素的一些行为</li>
+</ul>
+
+
+<h2>最后~</h2>
+
+<p>本节目所用示例可以猛戳<a href="http://plnkr.co/edit/77dGPHMz1mwRJHghTcXl">这里</a>查看ho~</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[AngularJS系列(5-1)] Directive - 开场小介绍]]></title>

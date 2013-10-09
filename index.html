@@ -9,7 +9,7 @@
   <meta name="author" content="hellobug">
 
   
-  <meta name="description" content="Directive其实就是让html变得更强大的一种方法。它可以根据需求对dom变形，或注入行为。 觉得它很神秘么，其实一点儿也不神秘，只要开始使用AngularJS了，就一定在使用着Directive，比如我们在html上写的那些ng-controller，ng-model，ng- &hellip;">
+  <meta name="description" content="还是先从栗子们看起~ 如果我想实现这样一个功能，当一个input失去光标焦点时(blur)，执行一些语句，比如当输入用户名后，向后台发ajax请求查询用户名是否已经存在，好有及时的页面相应。 输入 hellobug 失去焦点后提示 hellobug 这个用户名已经存在 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,57 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/angularjs-directive-2-compile-vs-link/">[AngularJS系列(5-2)] Directive - Compile vs. Link</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-14T20:35:00+08:00" pubdate data-updated="true">Aug 14<span>th</span>, 2013</time>
+        
+         | <a href="/blog/angularjs-directive-2-compile-vs-link/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>还是先从栗子们看起~</p>
+
+<p>如果我想实现这样一个功能，当一个input失去光标焦点时(blur)，执行一些语句，比如当输入用户名后，向后台发ajax请求查询用户名是否已经存在，好有及时的页面相应。</p>
+
+<p>输入 <strong>hellobug</strong>   <br/>
+<img src="/my-images/angularjs-directive-2-input-focus.png"></p>
+
+<p>失去焦点后提示 <strong>hellobug</strong> 这个用户名已经存在  <br/>
+<img src="/my-images/angularjs-directive-2-input-blur.png"></p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/angularjs-directive-2-compile-vs-link/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -508,6 +559,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/angularjs-directive-2-compile-vs-link/">[AngularJS系列(5-2)] Directive - Compile vs. Link</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/angularjs-directive-1-basic-introduction/">[AngularJS系列(5-1)] Directive - 开场小介绍</a>
       </li>
     
@@ -533,10 +588,6 @@
     
       <li class="post">
         <a href="/blog/powershell-quotes-rule/">Powershell里的单引号君和双引号君</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/github-pages-and-octopress-blog-setup/">[Github Pages + Octopress 搭建篇] - Geek般的写博客呦~</a>
       </li>
     
   </ul>
