@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "[CSS] 用CSS画三角形，普通版，文艺小阴影版~"
-date: 2013-09-28 19:04
+date: 2013-11-18 19:04
 comments: true
 categories: [css]
 published: false
@@ -97,7 +97,66 @@ div {
 
 # 文艺小阴影版
 
-慢慢的，我们希望做出更炫的界面，比如希望有阴影效果~
+慢慢的，我们希望做出更加高大上的界面，比如希望三角形有阴影效果~
+
+如果我们把阴影样式加在刚才的三角形上：
+
+{% codeblock lang:css Style %}
+div {
+    width: 0;
+    height: 0;
+    border: 40px solid red;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+{% endcodeblock %}
+
+{% img /my-images/css-triangle-shadow-01.png %}
+
+结果会发现，这根本不是我们想要的样式~    
+`box-shadow`只会出现在border的位置，没办法让它沿着三角形的边来显示~
+
+再次铛铛铛~几种替换绝招出场啦~~~
+
+## Unicode替身法
+
+Unicode符号里有上下左右方向的三角形 ▲ ▼ ◀ ▶，如果我们直接用这种符号，给上阴影效果就可以了
+
+{% codeblock lang:html Html %}
+<span class="triangle">▼</span>
+<span class="unicode"></span>
+{% endcodeblock %}
+
+{% codeblock lang:css Style %}
+.triangle {
+    color: red;
+    font-size: 40px;
+    text-shadow: 0 0 7px rgba(0, 0, 0, 0.7);
+}
+/* 或者用content的方式 */
+.unicode:after {
+    content: '\25BC';
+    color: blue;
+    font-size: 40px;
+    text-shadow: 0 0 7px rgba(0, 0, 0, 0.7);
+}
+{% endcodeblock %}
+
+效果都是一样的~
+
+{% img /my-images/css-triangle-shadow-01.png %}
+
+这个方法虽然简单，但也有很多不足，比如三角形的比例不能调整，不同的浏览器对unicode符号渲染的效果经常会有差异, IE9及以下的版本不支持`text-shadow`，需要特别hack
+
+## 双盒旋转大法
+
+
+
+## 老老实实上图法
+
 
 
 
