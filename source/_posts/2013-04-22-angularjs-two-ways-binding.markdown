@@ -33,7 +33,7 @@ Digest就像AngularJS的心跳一样~
 - 也可手动调用~   
 	**参数1**：待观察的value   
 	**参数2**：value改变时想执行的操作   
-	**参数3**：true表示比较的是值，而不是引用，由于javascript对象比较比较的是引用地址（可参考[这篇blog](/blog/javascript-variable-assignment/ "[JS] 让人犯晕的Javascript变量赋值")），所以即使重新赋值了相同的内容，也会触发change事件，而大部分时候，对于相同的内容，我们不希望执行watch里的操作，所以可以把第三个参数设置成true。
+	**参数3**：默认是false，使用的是javascript本身提供的比较方式来比较新，true表示比较的是真实的值，会有这个区别是由于javascript里对对象的比较是比较的引用地址（可参考[这篇blog](/blog/javascript-variable-assignment/ "[JS] 让人犯晕的Javascript变量赋值")），所以如果watch的是一个对象类型的数据，即使重新赋值了相同的内容，也会触发change事件，比如watch的变量对应的值是一个数组`[1, 2]`，如果再次给这个变量赋值`[1, 2]`，是会触发watch里面的参数2回调函数的，而大部分时候，对于相同的内容，我们不希望执行watch里的操作，所以可以把第三个参数设置成true。当然，如果watch的是五种基本类型（Undefined, Null, Boolean, Number和String）就不需要设置了，因为它们不会发生这种值相同却不等的情况
 
 {% codeblock lang:js %}
 $scope.$watch('name', function(newValue, oldValue) { 
