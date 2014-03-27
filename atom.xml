@@ -4,7 +4,7 @@
   <title><![CDATA[Hello Bug~]]></title>
   <link href="http://hellobug.github.com/atom.xml" rel="self"/>
   <link href="http://hellobug.github.com/"/>
-  <updated>2013-10-10T00:39:49+08:00</updated>
+  <updated>2014-03-28T00:14:26+08:00</updated>
   <id>http://hellobug.github.com/</id>
   <author>
     <name><![CDATA[hellobug]]></name>
@@ -726,8 +726,8 @@
 <li>AngularJS内部的watch实现了页面随model的及时更新</li>
 <li>也可手动调用~ <br/>
   <strong>参数1</strong>：待观察的value <br/>
-  <strong>参数2</strong>：value改变时想执行的操作 <br/>
-  <strong>参数3</strong>：true表示比较的是值，而不是引用，由于javascript对象比较比较的是引用地址（可参考<a href="http://hellobug.github.com/blog/javascript-variable-assignment/" title="[JS] 让人犯晕的Javascript变量赋值">这篇blog</a>），所以即使重新赋值了相同的内容，也会触发change事件，而大部分时候，对于相同的内容，我们不希望执行watch里的操作，所以可以把第三个参数设置成true。</li>
+  <strong>参数2</strong>：value改变时想执行的操作，两个参数分别是改变前后的值 <br/>
+  <strong>参数3</strong>：默认是<code>false</code>，使用的是JavaScript本身提供的比较方式，<code>true</code>表示比较的是真实的值，会有这个区别是由于JavaScript里对对象的比较是比较的引用地址（可参考<a href="http://hellobug.github.com/blog/javascript-variable-assignment/" title="[JS] 让人犯晕的Javascript变量赋值">这篇blog</a>），所以如果watch的是一个对象类型的数据，即使重新赋值了相同的内容，也会触发change事件，比如watch的变量对应的值是一个数组<code>[1, 2]</code>，如果再次给这个变量赋值<code>[1, 2]</code>，是会触发<code>watch</code>里面的参数2函数的，而大部分时候，对于相同的内容，我们不希望执行<code>watch</code>里的操作，所以可以把第三个参数设置成true，这个时候就会调用<code>angular.equals</code>来进行比较，<code>angular.equals</code>是会比较对象里每一个属性的值是否一样的。当然，如果watch的是五种基本类型（Undefined, Null, Boolean, Number和String）就不需要设置了，因为它们不会发生这种值相同却不相等的情况。</li>
 </ul>
 
 
@@ -1063,7 +1063,7 @@ AngularJS的入口点。从这里开始，AngularJS系统就开始工作了~后�
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[[JS] 让人犯晕的Javascript变量赋值]]></title>
+    <title type="html"><![CDATA[[JS] 让人犯晕的JavaScript变量赋值]]></title>
     <link href="http://hellobug.github.com/blog/javascript-variable-assignment/"/>
     <updated>2013-01-27T23:17:00+08:00</updated>
     <id>http://hellobug.github.com/blog/javascript-variable-assignment</id>
