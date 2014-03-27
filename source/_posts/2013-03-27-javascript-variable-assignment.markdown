@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[JS] 让人犯晕的Javascript变量赋值"
+title: "[JS] 让人犯晕的JavaScript变量赋值"
 date: 2013-01-27 23:17
 comments: true
 categories: [javascript]
