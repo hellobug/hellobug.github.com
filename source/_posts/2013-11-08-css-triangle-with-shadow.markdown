@@ -147,9 +147,9 @@ Unicode符号里有上下左右方向的三角形 ▲ ▼ ◀ ▶，如果我们
 
 效果都是一样的~
 
-{% img /my-images/css-triangle-shadow-01.png %}
+{% img /my-images/css-triangle-shadow-02.png %}
 
-这个方法虽然简单，但也有很多不足，比如三角形的比例不能调整，不同的浏览器对unicode符号渲染的效果经常会有差异, IE9及以下的版本不支持`text-shadow`，需要特别hack。
+这个方法虽然简单，但也有很多不足，比如三角形的比例不能调整，不同的浏览器对unicode符号渲染的效果经常会有差异，IE9及以下的版本不支持`text-shadow`，需要特别hack。
 
 ## 双盒旋转大法
 
