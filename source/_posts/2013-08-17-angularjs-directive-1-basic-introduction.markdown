@@ -116,7 +116,7 @@ app.directive("myAddress", function() {
 貌似更简单。。。那前面说那么多干嘛？！  
 这不是为了熟悉directive嘛~ -_-|||
 
-想自己动手试试，就猛戳[这里](http://plnkr.co/edit/ZgRpLtlRPsGWL14m7J3p)吧~
+想自己动手试试，就猛戳[这里](http://embed.plnkr.co/kwfzsM3s9bab9YIewzQj/preview)吧~
 
 其实directive的世界搭滴恨(小纪念一下在西安悠哉的小日子)，下集待续。。。
 

@@ -136,5 +136,5 @@ app.directive('repeater', function($document) {
 - 需要用到scope参数来实现dom元素的一些行为
 
 ## 最后~
-本节目所用示例可以猛戳[这里](http://plnkr.co/edit/77dGPHMz1mwRJHghTcXl)查看ho~
+本节目所用示例可以猛戳[这里](http://embed.plnkr.co/41guX7lPUAccn2sWeObO/preview)查看ho~
 
