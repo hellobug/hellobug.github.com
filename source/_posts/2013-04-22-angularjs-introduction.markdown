@@ -71,7 +71,7 @@ categories: [javascript, angularjs]
   		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
   		<script type="text/javascript" src="app.js"></script>
   	</head>
-  	<body>
+  	<body ng-controller="MainCtrl">
   		<h1>Hello, {% raw %}{{name}}{% endraw %}</h1>
   		<input type="text" ng-model="name">
   		<ul>
