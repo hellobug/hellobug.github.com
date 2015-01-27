@@ -15,6 +15,7 @@
     html { background: #262C33 url("../images/background.png"); }
 
     body { font-size: 1em; }
+    body, input, textarea, select, button { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
 
     body > div { background-image: none; }
 

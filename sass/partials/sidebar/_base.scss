@@ -20,6 +20,14 @@ aside.sidebar {
         padding-top: .4em;
       }
     }
+    &.about-me {
+      p {
+        margin-bottom: .3em;
+      }
+      img {
+        border-radius: 50%;
+      }
+    }
   }
   img {
     @extend .flex-content;
