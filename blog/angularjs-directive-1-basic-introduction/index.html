@@ -30,6 +30,16 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<script type="text/javascript">
+	function addBlankTargetForLinks () {
+	  $('a[href^="http"]').each(function(){
+	      $(this).attr('target', '_blank');
+	  });
+	}
+	$(document).bind('DOMNodeInserted', function(event) {
+	  addBlankTargetForLinks();
+	});
+</script>
 
 
   
@@ -277,7 +287,7 @@
 <p>貌似更简单。。。那前面说那么多干嘛？！<br/>
 这不是为了熟悉directive嘛~ -_-|||</p>
 
-<p>想自己动手试试，就猛戳<a href="http://plnkr.co/edit/ZgRpLtlRPsGWL14m7J3p">这里</a>吧~</p>
+<p>想自己动手试试，就猛戳<a href="http://embed.plnkr.co/kwfzsM3s9bab9YIewzQj/preview">这里</a>吧~</p>
 
 <p>其实directive的世界搭滴恨(小纪念一下在西安悠哉的小日子)，下集待续。。。</p>
 </div>
@@ -372,10 +382,16 @@
 	
 		<a href="/blog/categories/angularjs">angularjs</a>&nbsp;
 	
+		<a href="/blog/categories/css">css</a>&nbsp;
+	
 	</p>
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/css-triangle-with-shadow/">[CSS] 用CSS画三角形，普通版，文艺小阴影版~</a>
+      </li>
     
       <li class="post">
         <a href="/blog/angularjs-directive-2-compile-vs-link/">[AngularJS系列(5-2)] Directive - Compile vs. Link</a>
@@ -405,10 +421,6 @@
         <a href="/blog/javascript-variable-assignment/">[JS] 让人犯晕的JavaScript变量赋值</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/powershell-quotes-rule/">Powershell里的单引号君和双引号君</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -424,7 +436,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - hellobug -
+  Copyright &copy; 2015 - hellobug -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

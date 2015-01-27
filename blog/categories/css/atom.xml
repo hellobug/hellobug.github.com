@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: css | Hello Bug~]]></title>
+  <link href="http://hellobug.github.com/blog/categories/css/atom.xml" rel="self"/>
+  <link href="http://hellobug.github.com/"/>
+  <updated>2015-01-27T22:21:11+08:00</updated>
+  <id>http://hellobug.github.com/</id>
+  <author>
+    <name><![CDATA[hellobug]]></name>
+    <email><![CDATA[joy.xczhang+hellobug@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[[CSS] 用CSS画三角形，普通版，文艺小阴影版~]]></title>
+    <link href="http://hellobug.github.com/blog/css-triangle-with-shadow/"/>
+    <updated>2013-11-18T19:04:00+08:00</updated>
+    <id>http://hellobug.github.com/blog/css-triangle-with-shadow</id>
+    <content type="html"><![CDATA[<h1>普通版</h1>
+
+<p>用CSS画个普通三角形，应该已经不是时髦的技术了，现在用的比较普及了，不过还是先讲一下原理吧~</p>
+
+<!-- more -->
+
+
+<p>先来看一下盒子模型里内容和border的关系~为了更容易看清楚，我把四面的border分别设置成不同的颜色~</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>HTML </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;div&gt;&lt;/div&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Style </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">div</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">width</span><span class="o">:</span> <span class="m">80px</span><span class="p">;</span>
+</span><span class='line'><span class="k">height</span><span class="o">:</span> <span class="m">80px</span><span class="p">;</span>
+</span><span class='line'><span class="k">border</span><span class="o">:</span> <span class="m">20px</span> <span class="k">solid</span> <span class="nb">red</span><span class="p">;</span>
+</span><span class='line'><span class="k">border-left-color</span><span class="o">:</span> <span class="nb">blue</span><span class="p">;</span>
+</span><span class='line'><span class="k">border-bottom-color</span><span class="o">:</span> <span class="nb">orange</span><span class="p">;</span>
+</span><span class='line'><span class="k">border-right</span><span class="o">-</span><span class="k">color</span><span class="o">:</span> <span class="nb">green</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>效果如下：</p>
+
+<p><img src="/my-images/css-triangle-01.png"></p>
+
+<p>那如果我们继续缩小内容的宽高，直到0呢~</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Style </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">div</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">width</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="k">height</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="k">border</span><span class="o">:</span> <span class="m">20px</span> <span class="k">solid</span> <span class="nb">red</span><span class="p">;</span>
+</span><span class='line'><span class="k">border-left-color</span><span class="o">:</span> <span class="nb">blue</span><span class="p">;</span>
+</span><span class='line'><span class="k">border-bottom-color</span><span class="o">:</span> <span class="nb">orange</span><span class="p">;</span>
+</span><span class='line'><span class="k">border-right</span><span class="o">-</span><span class="k">color</span><span class="o">:</span> <span class="nb">green</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>效果如下：</p>
+
+<p><img src="/my-images/css-triangle-02.png"></p>
+
+<p>这个时候就很清晰了，我们只要根据需求隐藏相应的border，就剩下一个三角形了~比如：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Style </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">div</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">width</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="k">height</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="k">border</span><span class="o">:</span> <span class="m">20px</span> <span class="k">solid</span> <span class="nb">red</span><span class="p">;</span>
+</span><span class='line'><span class="k">border-left-color</span><span class="o">:</span> <span class="k">transparent</span><span class="p">;</span>
+</span><span class='line'><span class="k">border-bottom-color</span><span class="o">:</span> <span class="k">transparent</span><span class="p">;</span>
+</span><span class='line'><span class="k">border-right</span><span class="o">-</span><span class="k">color</span><span class="o">:</span> <span class="k">transparent</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>铛铛档~~新鲜的向下的小红三角形就闪亮出场了~~~</p>
+
+<p><img src="/my-images/css-triangle-03.png"></p>
+
+<p>留着上border和左border就是向左上的三角形~</p>
+
+<p><img src="/my-images/css-triangle-04.png"></p>
+
+<p>通过调整不同方向border的宽度还可以得到不同比例的三角形，比如~</p>
+
+<p><img src="/my-images/css-triangle-05.png"></p>
+
+<h4>原理明白了后可能有两个问题就冒出来了：</h4>
+
+<ul>
+<li>什么场景会用到三角形？</li>
+<li>为什么不用图片，而要用样式来写？</li>
+</ul>
+
+
+<h4>先来说场景~</h4>
+
+<p>来一些网站上的截图：</p>
+
+<p><img src="/my-images/css-triangle-scene-01.png">
+<img src="/my-images/css-triangle-scene-02.png">
+<img src="/my-images/css-triangle-scene-03.png"></p>
+
+<p>如果留意的话，就会发现三角形在网站中是个很常用的显示元素呢~</p>
+
+<h4>再来说为啥不推荐用图片~</h4>
+
+<p>是的，这些三角形用图片都是可以达到一样的效果的，但当颜色和比例需要改动时，CSS只要简单的改变一下border的样式就可以了，图片可是要重新替换的，效果也没有那么容易调试，过多的图片也会对页面性能造成影响，所以还是推荐用CSS来实现喽~</p>
+
+<h1>文艺小阴影版</h1>
+
+<p>慢慢的，我们希望做出更加高大上的界面，比如希望三角形有阴影效果~</p>
+
+<p>如果我们把阴影样式加在刚才的三角形上：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Style </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">div</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">width</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="k">height</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="k">border</span><span class="o">:</span> <span class="m">40px</span> <span class="k">solid</span> <span class="nb">red</span><span class="p">;</span>
+</span><span class='line'><span class="k">border-left-color</span><span class="o">:</span> <span class="k">transparent</span><span class="p">;</span>
+</span><span class='line'><span class="k">border-bottom-color</span><span class="o">:</span> <span class="k">transparent</span><span class="p">;</span>
+</span><span class='line'><span class="k">border-right</span><span class="o">-</span><span class="k">color</span><span class="o">:</span> <span class="k">transparent</span><span class="p">;</span>
+</span><span class='line'><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">5px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">3</span><span class="p">);</span>
+</span><span class='line'><span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">5px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">3</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><img src="/my-images/css-triangle-shadow-01.png"></p>
+
+<p>结果会发现，这根本不是我们想要的样式~  <br/>
+<code>box-shadow</code>只会出现在border的位置，没办法让它沿着三角形的边来显示~</p>
+
+<p>再次铛铛铛~几种替换绝招出场啦~~~</p>
+
+<h2>Unicode替身法</h2>
+
+<p>Unicode符号里有上下左右方向的三角形 ▲ ▼ ◀ ▶，如果我们直接用这种符号，给上阴影效果就可以了</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Html </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;triangle&quot;</span><span class="nt">&gt;</span>▼<span class="nt">&lt;/span&gt;</span>
+</span><span class='line'><span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;unicode&quot;</span><span class="nt">&gt;&lt;/span&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Style </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nc">.triangle</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
+</span><span class='line'><span class="k">font-size</span><span class="o">:</span> <span class="m">40px</span><span class="p">;</span>
+</span><span class='line'><span class="k">text-shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">7px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">7</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="o">/&lt;</span><span class="nt">em</span><span class="o">&gt;</span> <span class="err">或者用</span><span class="nt">content</span><span class="err">的方式</span> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/</span>
+</span><span class='line'><span class="nc">.unicode</span><span class="nd">:after</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">content</span><span class="o">:</span> <span class="s1">&#39;\25BC&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="k">color</span><span class="o">:</span> <span class="nb">blue</span><span class="p">;</span>
+</span><span class='line'><span class="k">font-size</span><span class="o">:</span> <span class="m">40px</span><span class="p">;</span>
+</span><span class='line'><span class="k">text-shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">7px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">7</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>效果都是一样的~</p>
+
+<p><img src="/my-images/css-triangle-shadow-02.png"></p>
+
+<p>这个方法虽然简单，但也有很多不足，比如三角形的比例不能调整，不同的浏览器对unicode符号渲染的效果经常会有差异，IE9及以下的版本不支持<code>text-shadow</code>，需要特别hack。</p>
+
+<h2>双盒旋转大法</h2>
+
+<p>原理就是，方块两兄弟，弟弟负责带着阴影旋转，大哥负责遮挡住不该被看到的部分。。。（好像气氛哪里不太对的样子）</p>
+
+<p>最终效果图~ <br/>
+<img src="/my-images/css-triangle-2-boxes-shadow-final.png"></p>
+
+<h4>分解步骤：</h4>
+
+<ol>
+<li>弟弟带着阴影华丽转45度后的样子~ <br/>
+<img src="/my-images/css-triangle-2-boxes-shadow-01.png"></li>
+<li>哥哥自带一小块阴影出场，虚线表示哥哥实际的占地面积~ <br/>
+<img src="/my-images/css-triangle-2-boxes-shadow-02.png"></li>
+<li>哥哥弟弟重合~ <br/>
+<img src="/my-images/css-triangle-2-boxes-shadow-03.png"></li>
+<li>哥哥开挡~ <br/>
+<img src="/my-images/css-triangle-2-boxes-shadow-final.png"></li>
+</ol>
+
+
+<p>（为毛觉得整个描述过程都笼罩在一种怪异的氛围中。。。-_-）</p>
+
+<p>上代码：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Html </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;triangle-with-shadow&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Style </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nc">.triangle-with-shadow</span> <span class="p">{</span>
+</span><span class='line'>   <span class="k">width</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+</span><span class='line'>   <span class="k">height</span><span class="o">:</span> <span class="m">50px</span><span class="p">;</span>
+</span><span class='line'>   <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
+</span><span class='line'>   <span class="k">overflow</span><span class="o">:</span> <span class="k">hidden</span><span class="p">;</span>
+</span><span class='line'>   <span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">16px</span> <span class="m">10px</span> <span class="m">-17px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">.</span><span class="m">6</span><span class="p">);</span>
+</span><span class='line'>   <span class="o">/&lt;</span><span class="n">em</span><span class="o">&gt;</span> <span class="err">这里的</span><span class="m">-17px</span><span class="err">将哥哥方块的阴影缩小至三角形下边的宽度</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;/</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nc">.triangle-with-shadow</span><span class="nd">:after</span> <span class="p">{</span>
+</span><span class='line'>   <span class="k">content</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+</span><span class='line'>   <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+</span><span class='line'>   <span class="k">width</span><span class="o">:</span> <span class="m">50px</span><span class="p">;</span>
+</span><span class='line'>   <span class="k">height</span><span class="o">:</span> <span class="m">50px</span><span class="p">;</span>
+</span><span class='line'>   <span class="k">top</span><span class="o">:</span> <span class="m">25px</span><span class="p">;</span>
+</span><span class='line'>   <span class="k">left</span><span class="o">:</span> <span class="m">25px</span><span class="p">;</span>
+</span><span class='line'>   <span class="n">transform</span><span class="o">:</span> <span class="n">rotate</span><span class="p">(</span><span class="m">45</span><span class="n">deg</span><span class="p">);</span>
+</span><span class='line'>   <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span><span class="n">rotate</span><span class="p">(</span><span class="m">45</span><span class="n">deg</span><span class="p">);</span>
+</span><span class='line'>   <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span><span class="n">rotate</span><span class="p">(</span><span class="m">45</span><span class="n">deg</span><span class="p">);</span>
+</span><span class='line'>   <span class="k">background</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
+</span><span class='line'>   <span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">-1px</span> <span class="m">-1px</span> <span class="m">10px</span> <span class="m">-2px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">.</span><span class="m">5</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>这个方法能显示出跟unicode方法不一样比例的三角形。。。直角三角形，但也有很多不足，比如三角形的比例也不能调整，用到了CSS3的效果，低版本IE不支持等。</p>
+
+<h2>老老实实上图法</h2>
+
+<p>最后，如果真心无奈，既要样式高大上，又要多浏览器无差别支持，那就只好上图片了~</p>
+
+<p>最后的最后，<a href="http://embed.plnkr.co/eyZ59IIdHCT76jNH43jO/preview">戳代码的地方</a>~</p>
+]]></content>
+  </entry>
+  
+</feed>

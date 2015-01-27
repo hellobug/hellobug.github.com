@@ -9,8 +9,9 @@
   <meta name="author" content="hellobug">
 
   
-  <meta name="description" content="Blog Archive 2013 [AngularJS系列(5-2)] Directive - Compile vs. Link
-Aug 14 2013 posted in angularjs, javascript [AngularJS系列(5-1)] Directive - 开场小介绍 &hellip;">
+  <meta name="description" content="Blog Archive 2013 [CSS] 用CSS画三角形，普通版，文艺小阴影版~
+Nov 18 2013 posted in css [AngularJS系列(5-2)] Directive - Compile vs. Link
+Aug 14 2013 posted in &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -31,6 +32,16 @@ Aug 14 2013 posted in angularjs, javascript [AngularJS系列(5-1)] Directive - �
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<script type="text/javascript">
+	function addBlankTargetForLinks () {
+	  $('a[href^="http"]').each(function(){
+	      $(this).attr('target', '_blank');
+	  });
+	}
+	$(document).bind('DOMNodeInserted', function(event) {
+	  addBlankTargetForLinks();
+	});
+</script>
 
 
   
@@ -92,6 +103,20 @@ Aug 14 2013 posted in angularjs, javascript [AngularJS系列(5-1)] Directive - �
 
   
   <h2>2013</h2>
+
+<article>
+  
+<h1><a href="/blog/css-triangle-with-shadow/">[CSS] 用CSS画三角形，普通版，文艺小阴影版~</a></h1>
+<time datetime="2013-11-18T19:04:00+08:00" pubdate><span class='month'>Nov</span> <span class='day'>18</span> <span class='year'>2013</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/css/'>css</a></span>
+</footer>
+
+
+</article>
+
+
 
 <article>
   
@@ -259,10 +284,16 @@ Aug 14 2013 posted in angularjs, javascript [AngularJS系列(5-1)] Directive - �
 	
 		<a href="/blog/categories/angularjs">angularjs</a>&nbsp;
 	
+		<a href="/blog/categories/css">css</a>&nbsp;
+	
 	</p>
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/css-triangle-with-shadow/">[CSS] 用CSS画三角形，普通版，文艺小阴影版~</a>
+      </li>
     
       <li class="post">
         <a href="/blog/angularjs-directive-2-compile-vs-link/">[AngularJS系列(5-2)] Directive - Compile vs. Link</a>
@@ -292,10 +323,6 @@ Aug 14 2013 posted in angularjs, javascript [AngularJS系列(5-1)] Directive - �
         <a href="/blog/javascript-variable-assignment/">[JS] 让人犯晕的JavaScript变量赋值</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/powershell-quotes-rule/">Powershell里的单引号君和双引号君</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -311,7 +338,7 @@ Aug 14 2013 posted in angularjs, javascript [AngularJS系列(5-1)] Directive - �
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - hellobug -
+  Copyright &copy; 2015 - hellobug -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

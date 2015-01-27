@@ -38,6 +38,16 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<script type="text/javascript">
+	function addBlankTargetForLinks () {
+	  $('a[href^="http"]').each(function(){
+	      $(this).attr('target', '_blank');
+	  });
+	}
+	$(document).bind('DOMNodeInserted', function(event) {
+	  addBlankTargetForLinks();
+	});
+</script>
 
 
   
@@ -229,7 +239,7 @@
 </span><span class='line'>          <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
 </span><span class='line'>          <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;app.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
 </span><span class='line'>      <span class="nt">&lt;/head&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;body&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;body</span> <span class="na">ng-controller=</span><span class="s">&quot;MainCtrl&quot;</span><span class="nt">&gt;</span>
 </span><span class='line'>          <span class="nt">&lt;h1&gt;</span>Hello, {{name}}<span class="nt">&lt;/h1&gt;</span>
 </span><span class='line'>          <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;name&quot;</span><span class="nt">&gt;</span>
 </span><span class='line'>          <span class="nt">&lt;ul&gt;</span>
@@ -359,10 +369,16 @@ AngularJS的入口点。从这里开始，AngularJS系统就开始工作了~后�
 	
 		<a href="/blog/categories/angularjs">angularjs</a>&nbsp;
 	
+		<a href="/blog/categories/css">css</a>&nbsp;
+	
 	</p>
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/css-triangle-with-shadow/">[CSS] 用CSS画三角形，普通版，文艺小阴影版~</a>
+      </li>
     
       <li class="post">
         <a href="/blog/angularjs-directive-2-compile-vs-link/">[AngularJS系列(5-2)] Directive - Compile vs. Link</a>
@@ -392,10 +408,6 @@ AngularJS的入口点。从这里开始，AngularJS系统就开始工作了~后�
         <a href="/blog/javascript-variable-assignment/">[JS] 让人犯晕的JavaScript变量赋值</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/powershell-quotes-rule/">Powershell里的单引号君和双引号君</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -411,7 +423,7 @@ AngularJS的入口点。从这里开始，AngularJS系统就开始工作了~后�
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - hellobug -
+  Copyright &copy; 2015 - hellobug -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

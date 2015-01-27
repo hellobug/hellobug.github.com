@@ -31,6 +31,16 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<script type="text/javascript">
+	function addBlankTargetForLinks () {
+	  $('a[href^="http"]').each(function(){
+	      $(this).attr('target', '_blank');
+	  });
+	}
+	$(document).bind('DOMNodeInserted', function(event) {
+	  addBlankTargetForLinks();
+	});
+</script>
 
 
   
@@ -314,7 +324,7 @@
 
 <h2>最后~</h2>
 
-<p>本节目所用示例可以猛戳<a href="http://plnkr.co/edit/77dGPHMz1mwRJHghTcXl">这里</a>查看ho~</p>
+<p>本节目所用示例可以猛戳<a href="http://embed.plnkr.co/41guX7lPUAccn2sWeObO/preview">这里</a>查看ho~</p>
 </div>
 
 
@@ -361,6 +371,8 @@
         <a class="basic-alignment left" href="/blog/angularjs-directive-1-basic-introduction/" title="Previous Post: [AngularJS系列(5-1)] Directive - 开场小介绍">&laquo; [AngularJS系列(5-1)] Directive - 开场小介绍</a>
       
       
+        <a class="basic-alignment right" href="/blog/css-triangle-with-shadow/" title="Next Post: [CSS] 用CSS画三角形，普通版，文艺小阴影版~">[CSS] 用CSS画三角形，普通版，文艺小阴影版~ &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -405,10 +417,16 @@
 	
 		<a href="/blog/categories/angularjs">angularjs</a>&nbsp;
 	
+		<a href="/blog/categories/css">css</a>&nbsp;
+	
 	</p>
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/css-triangle-with-shadow/">[CSS] 用CSS画三角形，普通版，文艺小阴影版~</a>
+      </li>
     
       <li class="post">
         <a href="/blog/angularjs-directive-2-compile-vs-link/">[AngularJS系列(5-2)] Directive - Compile vs. Link</a>
@@ -438,10 +456,6 @@
         <a href="/blog/javascript-variable-assignment/">[JS] 让人犯晕的JavaScript变量赋值</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/powershell-quotes-rule/">Powershell里的单引号君和双引号君</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -457,7 +471,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - hellobug -
+  Copyright &copy; 2015 - hellobug -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

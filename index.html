@@ -9,7 +9,7 @@
   <meta name="author" content="hellobug">
 
   
-  <meta name="description" content="还是先从栗子们看起~ 如果我想实现这样一个功能，当一个input失去光标焦点时(blur)，执行一些语句，比如当输入用户名后，向后台发ajax请求查询用户名是否已经存在，好有及时的页面相应。 输入 hellobug 失去焦点后提示 hellobug 这个用户名已经存在 ">
+  <meta name="description" content="普通版 用CSS画个普通三角形，应该已经不是时髦的技术了，现在用的比较普及了，不过还是先讲一下原理吧~ ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -30,6 +30,16 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<script type="text/javascript">
+	function addBlankTargetForLinks () {
+	  $('a[href^="http"]').each(function(){
+	      $(this).attr('target', '_blank');
+	  });
+	}
+	$(document).bind('DOMNodeInserted', function(event) {
+	  addBlankTargetForLinks();
+	});
+</script>
 
 
   
@@ -79,6 +89,51 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/css-triangle-with-shadow/">[CSS] 用CSS画三角形，普通版，文艺小阴影版~</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-18T19:04:00+08:00" pubdate data-updated="true">Nov 18<span>th</span>, 2013</time>
+        
+         | <a href="/blog/css-triangle-with-shadow/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>普通版</h1>
+
+<p>用CSS画个普通三角形，应该已经不是时髦的技术了，现在用的比较普及了，不过还是先讲一下原理吧~</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/css-triangle-with-shadow/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -553,10 +608,16 @@
 	
 		<a href="/blog/categories/angularjs">angularjs</a>&nbsp;
 	
+		<a href="/blog/categories/css">css</a>&nbsp;
+	
 	</p>
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/css-triangle-with-shadow/">[CSS] 用CSS画三角形，普通版，文艺小阴影版~</a>
+      </li>
     
       <li class="post">
         <a href="/blog/angularjs-directive-2-compile-vs-link/">[AngularJS系列(5-2)] Directive - Compile vs. Link</a>
@@ -586,10 +647,6 @@
         <a href="/blog/javascript-variable-assignment/">[JS] 让人犯晕的JavaScript变量赋值</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/powershell-quotes-rule/">Powershell里的单引号君和双引号君</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -604,7 +661,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - hellobug -
+  Copyright &copy; 2015 - hellobug -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
